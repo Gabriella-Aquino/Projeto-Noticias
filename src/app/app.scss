@@ -1,0 +1,30 @@
+.mainContainer {
+  margin: 30px;
+}
+
+nz-layout {
+  background-color: transparent;
+}
+
+nz-sider {
+  background-color: transparent;
+}
+
+.siderContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  app-news-card {
+    padding-right: 20px;
+    padding-bottom: 40px;
+  }
+
+  .secondaryNews{
+    display: flex;
+    gap: 20px;
+  }
+}
+
+.anotherNoticie {
+  background-color: aquamarine;
+}

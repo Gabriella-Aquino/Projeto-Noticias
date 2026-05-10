@@ -1,3 +1,48 @@
 <main class="main"></main>
+<nz-layout class="mainContainer">
+  <nz-sider nzWidth="75%">
+    <div class="siderContainer">
+      <app-news-card
+        title="titulo"
+        image="https://i.pinimg.com/236x/58/83/71/5883719edede80221436679dd1438d7d.jpg"
+        category="aa"
+        subtitle="lalalal"
+        [main]="true"
+      ></app-news-card>
+      <div class="secondaryNews">
+        <app-news-card
+          title="titulo"
+          image="https://i.pinimg.com/236x/58/83/71/5883719edede80221436679dd1438d7d.jpg"
+          category="aa"
+          subtitle="lalalal"
+        ></app-news-card>
+        <app-news-card
+          title="titulo"
+          image="https://i.pinimg.com/236x/58/83/71/5883719edede80221436679dd1438d7d.jpg"
+          category="aa"
+          subtitle="lalalal"
+        ></app-news-card>
+        <app-news-card
+          title="titulo"
+          image="https://i.pinimg.com/236x/58/83/71/5883719edede80221436679dd1438d7d.jpg"
+          category="aa"
+          subtitle="lalalal"
+        ></app-news-card>
+      </div>
+    </div>
+  </nz-sider>
 
+  <nz-layout class="">
+    <nz-content class="anotherNoticie"> </nz-content>
+  </nz-layout>
+</nz-layout>
+
+<div style="width: 200px">
+  <app-news-card
+    title="titulo"
+    image="https://i.pinimg.com/236x/58/83/71/5883719edede80221436679dd1438d7d.jpg"
+    category="aa"
+    subtitle="lalalal"
+  ></app-news-card>
+</div>
 <router-outlet />
