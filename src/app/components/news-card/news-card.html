@@ -1,0 +1,15 @@
+<nz-card>
+  <div class="cardContainer" [class.mainCardContainer]="main()">
+    @if (image()) {
+      <img
+        nz-image
+        nzSrc="https://i.pinimg.com/236x/58/83/71/5883719edede80221436679dd1438d7d.jpg"
+      />
+    }
+    <div class="infoContainer">
+      <h3>{{title()}}</h3>
+      <h4>{{subtitle()}}</h4>
+      <span class="lato-light">data atualização</span>
+    </div>
+  </div>
+</nz-card>
