@@ -1,0 +1,6 @@
+<button nz-button [nzType]="variant()">
+    @if (icon()) {
+    <span nz-icon [nzType]="icon()!"></span>
+    }
+    {{ label() }}
+</button>

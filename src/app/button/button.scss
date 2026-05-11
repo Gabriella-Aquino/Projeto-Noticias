@@ -1,0 +1,21 @@
+button {
+  font-family: 'Lato';
+  text-transform: uppercase;
+  color: white;
+  font-weight: 500;
+  font-size: 1.6rem;
+  border: none;
+}
+
+.ant-btn-primary {
+  background-color: #ff2f2f;
+  &:hover {
+    background-color: #ff2f2fc8;
+  }
+}
+
+.ant-btn-link {
+  &:hover {
+    color: #ff2f2f;
+  }
+}
