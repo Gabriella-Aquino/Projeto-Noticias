@@ -1,24 +1,21 @@
+.mobile-only {
+  display: none;
+}
+
 #search-bar {
   display: flex;
   gap: 0.4rem;
   align-items: center;
 
-  input {
+  input[nz-input] {
     background: none;
     border: none;
     border-bottom: solid white 0.2rem;
     border-radius: 0;
     font-family: 'Lato';
     color: white;
-
-    &:focus {
-      outline: none;
-      box-shadow: none;
-    }
-
-    &::placeholder {
-      color: white;
-    }
+    &:focus { outline: none; box-shadow: none; }
+    &::placeholder { color: white; }
   }
 
   button {
@@ -29,9 +26,47 @@
   }
 }
 
+@media screen and (max-width: 500px) {
+  #search-bar {
+    input[nz-input], 
+    .desktop-only {
+      display: none !important;
+    }
+  }
+
+  .mobile-only.search-trigger {
+    display: flex !important; 
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background: none;
+    border: none;
+    padding: 0;
+
+    span {
+      font-size: 2rem;
+    }
+  }
+}
+
 :host ::ng-deep {
   .anticon {
     font-size: 2rem !important;
     color: white !important;
+  }
+
+  
+
+  .ant-modal-content {
+    input {
+      color: #333 !important;
+      border-bottom: 1px solid #d9d9d9 !important;
+    }
+    .anticon {
+      color: #333 !important;
+    }
+    .ant-modal-close {
+      color: #333 !important;
+    }
   }
 }

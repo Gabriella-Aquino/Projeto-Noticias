@@ -1,6 +1,35 @@
+<!-- DESKTOP: Barra de pesquisa normal -->
 <div id="search-bar">
     <input nz-input placeholder="Busque uma notícia" />
-    <button>
+    <button class="desktop-only">
         <span nz-icon nzType="search"></span>
     </button>
 </div>
+
+<!-- MOBILE: Apenas o ícone que abre o Modal -->
+<button nz-button nzType="text" class="mobile-only search-trigger" (click)="showModalSearch()">
+  <span nz-icon nzType="search"></span>
+</button>
+
+<!-- MODAL DE PESQUISA -->
+<nz-modal 
+  [(nzVisible)]="isSearchVisible" 
+  nzTitle="Procure sua notícia?" 
+  (nzOnCancel)="handleCancel()"
+  [nzFooter]="null"
+  nzCentered
+>
+  <ng-container *nzModalContent>
+    <nz-input-group [nzSuffix]="suffixIcon">
+      <input 
+        type="text" 
+        nz-input 
+        placeholder="Digite sua notícia..." 
+        #searchInput
+      />
+    </nz-input-group>
+    <ng-template #suffixIcon>
+      <span nz-icon nzType="search"></span>
+    </ng-template>
+  </ng-container>
+</nz-modal>

@@ -19,3 +19,16 @@ button {
     color: #ff2f2f;
   }
 }
+
+@media screen and (max-width: 726px) {
+  .ant-btn-primary {
+    padding: 0 0.8rem;
+  }
+  .ant-btn-link {
+    padding: 0 0.8rem;
+    font-size: 2rem;
+    .button-label {
+      display: none;
+    }
+  }
+}
