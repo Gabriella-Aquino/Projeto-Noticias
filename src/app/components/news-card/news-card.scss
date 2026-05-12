@@ -21,7 +21,6 @@ nz-card {
   img {
     width: 100%;
     object-fit: cover;
-    aspect-ratio: 11/6;
   }
   .infoContainer {
     display: flex;
@@ -38,10 +37,37 @@ nz-card {
   }
 }
 
-.mainCardContainer {
+.primary {
   flex-direction: row;
   gap: 30px;
   img {
-    width: 425px;
+    height: 280px;
+  }
+}
+
+.secondary {
+  img {
+    height: 180px;
+  }
+  h3 {
+    font-size: 20px;
+    font-weight: 800;
+  }
+  h4 {
+    font-size: 16px;
+  }
+}
+
+.tertiary {
+  img {
+    display: none;
+  }
+
+  h3 {
+    font-size: 16px;
+    font-weight: 800;
+  }
+  h4 {
+    font-size: 14px;
   }
 }

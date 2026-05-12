@@ -1,15 +1,23 @@
 <nz-card>
-  <div class="cardContainer" [class.mainCardContainer]="main()">
+  <div
+    class="cardContainer"
+    [class.primary]="variant() === 'primary'"
+    [class.secondary]="variant() === 'secondary'"
+    [class.tertiary]="variant() === 'tertiary'"
+  >
     @if (image()) {
-      <img
-        nz-image
-        nzSrc="https://i.pinimg.com/236x/58/83/71/5883719edede80221436679dd1438d7d.jpg"
-      />
+      <img nz-image nzSrc="{{ image() }}" />
     }
     <div class="infoContainer">
-      <h3>{{title()}}</h3>
-      <h4>{{subtitle()}}</h4>
-      <span class="lato-light">data atualização</span>
+      <h3>{{ title() }}</h3>
+      <h4>{{ subtitle() }}</h4>
+      <span class="lato-light">
+        @if (updated() && created() && updated()?.getTime() !== created()?.getTime()) {
+          Atualizado {{ updated() | timeAgo }}
+        } @else {
+          Criado {{ created() | timeAgo }}
+        }
+      </span>
     </div>
   </div>
 </nz-card>

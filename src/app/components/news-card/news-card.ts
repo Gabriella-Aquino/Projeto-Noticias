@@ -1,17 +1,25 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzImageModule } from 'ng-zorro-antd/image';
+import { TimeAgoPipe } from '../../pipes/time-ago-pipe';
+
+export type INewsCardVariant = 'primary' | 'secondary' | 'tertiary';
 
 @Component({
   selector: 'app-news-card',
-  imports: [NzCardModule, NzImageModule],
+  imports: [NzCardModule, NzImageModule, TimeAgoPipe],
   templateUrl: './news-card.html',
   styleUrl: './news-card.scss',
 })
 export class NewsCard {
   title = input.required<string>();
-  subtitle = input<string>();
-  category = input<string>();
-  image = input<string>();
-  main = input<boolean>(false)
+  subtitle = input.required<string>();
+  category = input.required<string>();
+  image = input.required<string>();
+  updated = input.required<Date | null>();
+  created = input.required<Date>();
+
+  variant = input<INewsCardVariant>('secondary');
+
+
 }

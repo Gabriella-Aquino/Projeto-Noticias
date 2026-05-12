@@ -7,7 +7,7 @@ export interface INews {
   content: string;
   image: string;
   created: Date;
-  updated: Date;
+  updated: Date | null;
   author: IAuthor;
   category: ICategory;
   main?: boolean;

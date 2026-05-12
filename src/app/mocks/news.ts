@@ -7,8 +7,8 @@ export const newsMock: INews[] = [
     content:
       'Pesquisadores divulgaram novas imagens capturadas por um telescópio de última geração. As fotos mostram galáxias extremamente distantes com detalhes nunca vistos anteriormente.',
     image: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564',
-    created: new Date('2026-05-01'),
-    updated: new Date('2026-05-01'),
+    created: new Date('2026-05-12'),
+    updated: null,
     author: {
       name: 'Ana Souza',
     },

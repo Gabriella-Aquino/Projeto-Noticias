@@ -19,12 +19,21 @@ nz-sider {
     padding-bottom: 40px;
   }
 
-  .secondaryNews{
+  .secondaryNews {
     display: flex;
     gap: 20px;
+    app-news-card {
+      width: 100%;
+    }
   }
 }
 
-.anotherNoticie {
-  background-color: aquamarine;
+.tertiaryNoticie {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.separator {
+  border-top: 1px solid #e6e6e6;
 }
