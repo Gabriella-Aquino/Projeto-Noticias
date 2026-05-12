@@ -1,1 +1,47 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+html {
+  font-size: 62.5%;
+}
+
+.ant-drawer-content {
+  background-color: #222 !important;
+}
+
+.ant-drawer-header {
+  background-color: #222 !important;
+  border-bottom: 1px solid #444 !important;
+}
+
+.ant-drawer-title {
+  color: white !important;
+  font-size: 2rem;
+}
+
+.ant-drawer-close {
+  color: white !important;
+  /* Se o ícone não mudar, atacamos o SVG dentro dele */
+  .anticon {
+    color: white !important;
+  }
+}
+
+.ant-modal-content {
+  background-color: #333 !important;
+}
+
+.ant-modal-close {
+  background-color: #333 !important;
+}
+
+.ant-modal-header {
+  background-color: #333 !important;
+}
+
+.ant-modal-title{
+  color: white;
+}
+
+.ant-modal-close-x{
+  color:white;
+}
