@@ -1,5 +1,6 @@
 nz-card {
   border: none;
+  cursor: pointer;
   p,
   h1,
   h2,
@@ -7,6 +8,9 @@ nz-card {
   h4 {
     box-sizing: border-box;
     margin: 0;
+  }
+  &:hover{
+    scale: 0.9;
   }
 }
 :host ::ng-deep .ant-card-body {
