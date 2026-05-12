@@ -1,13 +1,23 @@
-<nz-carousel [nzEffect]="'scrollx'" nzArrows>
-  @for (group of groupedItems; track $index) {
-    <div nz-carousel-content>
-      <div class="card-wrapper">
-        @for (item of group; track item.id) {
-          <div class="custom-card">
-            <img src="{{item.avatar}}" alt="">
-          </div>
-        }
+<section class="container">
+  <h3>COLUNISTAS</h3>
+  <nz-carousel [nzEffect]="'scrollx'" nzArrows>
+    @for (group of groupedItems; track $index) {
+      <div nz-carousel-content>
+        <div class="card-wrapper">
+          @for (item of group; track item.id) {
+            <div class="card-container">
+              <div class="custom-card">
+                <img
+                  [src]="item.avatar ? item.avatar : 'assets/icons/avatar-default.png'"
+                  [alt]="item.name"
+                >
+                <!-- Se quiser exibir o nome abaixo da foto -->
+              </div>
+              <span>{{ item.name }}</span>
+            </div>
+          }
+        </div>
       </div>
-    </div>
-  }
-</nz-carousel>
+    }
+  </nz-carousel>
+</section>

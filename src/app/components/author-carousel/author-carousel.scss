@@ -1,9 +1,23 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 30px;
+
+  h3 {
+    font-family: 'Lato', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    letter-spacing: 5px;
+  }
+}
+
 [nz-carousel-content] {
-  height: 200px;
+  height: 80px;
   background-color: transparent;
   color: #fff;
   overflow: hidden;
   width: 100%;
+  padding: 0px;
 }
 
 .card-wrapper {
@@ -12,7 +26,7 @@
   gap: 15px;
   align-items: center;
   height: 100%;
-  padding: 20px;
+  padding: 15px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -57,19 +71,30 @@
   }
 }
 
-.custom-card {
-  width: 100%;
-  background: rgba(37, 32, 32, 0.2);
-  aspect-ratio: 1;
+.card-container {
   display: flex;
   flex-direction: column;
+  gap: 15px;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
-  overflow: hidden;
 
-  img {
+  .custom-card {
     width: 100%;
-    object-fit: cover;
+    background: rgba(37, 32, 32, 0.2);
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+  span{
+    color: #232323;
   }
 }
