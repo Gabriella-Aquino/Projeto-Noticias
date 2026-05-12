@@ -2,13 +2,15 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Footer } from './footer/footer';
 import { NavBar } from './nav-bar/nav-bar';
+import { WeatherCard } from './weather-card/weather-card';
+import { QuotationCard } from './quotation-card/quotation-card';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NewsCard } from './components/news-card/news-card';
 import { newsMock } from './mocks/news';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Footer, NavBar, NzLayoutModule, NewsCard],
+  imports: [RouterOutlet, Footer, NavBar, WeatherCard, QuotationCard, NzLayoutModule, NewsCard],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

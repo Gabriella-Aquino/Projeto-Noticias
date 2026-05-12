@@ -1,5 +1,18 @@
 <app-nav-bar />
 <main>
+    <section>
+        <img src="assets/icons/logo-black.svg">
+        <div class="daily-info">
+            <app-weather-card [infos]="{
+        local:'Pau dos ferros',
+        minDegree: 30,
+        maxDegree: 32,
+        weather: 'Nublado',
+        season: 'Inverno' }" />
+            <app-quotation-card [infos]="{dollar:4.50, euro:5.50}" />
+        </div>
+    </section>
+
   <nz-layout class="mainContainer">
     <nz-sider nzWidth="75%">
       <div class="siderContainer">
