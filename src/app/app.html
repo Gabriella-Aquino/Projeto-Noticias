@@ -1,51 +1,55 @@
-<main class="main"></main>
-<nz-layout class="mainContainer">
-  <nz-sider nzWidth="75%">
-    <div class="siderContainer">
-      @if (mainNews) {
-        <app-news-card
-          [title]="mainNews.title"
-          [image]="mainNews.image"
-          [subtitle]="mainNews.subTitle"
-          [category]="mainNews.category"
-          [variant]="'primary'"
-          [updated]="mainNews.updated"
-          [created]="mainNews.created"
-        ></app-news-card>
-      }
-      <div class="secondaryNews">
-        @for (news of secondeNews; track $index) {
+<app-nav-bar />
+<main>
+  <nz-layout class="mainContainer">
+    <nz-sider nzWidth="75%">
+      <div class="siderContainer">
+        @if (mainNews) {
           <app-news-card
-            [title]="news.title"
-            [image]="news.image"
-            [subtitle]="news.subTitle"
-            [category]="news.category"
-            [updated]="news.updated"
-            [created]="news.created"
+            [title]="mainNews.title"
+            [image]="mainNews.image"
+            [subtitle]="mainNews.subTitle"
+            [category]="mainNews.category"
+            [variant]="'primary'"
+            [updated]="mainNews.updated"
+            [created]="mainNews.created"
           ></app-news-card>
         }
+        <div class="secondaryNews">
+          @for (news of secondeNews; track $index) {
+            <app-news-card
+              [title]="news.title"
+              [image]="news.image"
+              [subtitle]="news.subTitle"
+              [category]="news.category"
+              [updated]="news.updated"
+              [created]="news.created"
+            ></app-news-card>
+          }
+        </div>
       </div>
-    </div>
-  </nz-sider>
+    </nz-sider>
 
-  <nz-layout class="">
-    <nz-content>
-      <div class="tertiaryNoticie">
-        @for (news of tertiaryNews; track $index) {
-          <app-news-card
-            class="separator"
-            [title]="news.title"
-            [subtitle]="news.subTitle"
-            [category]="news.category"
-            [image]="news.image"
-            [variant]="'tertiary'"
-            [updated]="news.updated"
-            [created]="news.created"
-          ></app-news-card>
-        }
-      </div>
-    </nz-content>
+    <nz-layout class="">
+      <nz-content>
+        <div class="tertiaryNoticie">
+          @for (news of tertiaryNews; track $index) {
+            <app-news-card
+              class="separator"
+              [title]="news.title"
+              [subtitle]="news.subTitle"
+              [category]="news.category"
+              [image]="news.image"
+              [variant]="'tertiary'"
+              [updated]="news.updated"
+              [created]="news.created"
+            ></app-news-card>
+          }
+        </div>
+      </nz-content>
+    </nz-layout>
   </nz-layout>
-</nz-layout>
 
+</main>
+
+<app-footer />
 <router-outlet />

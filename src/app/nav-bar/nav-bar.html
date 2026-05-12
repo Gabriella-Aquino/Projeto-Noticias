@@ -1,0 +1,39 @@
+<nav>
+    <!-- DESKTOP -->
+    <app-links class="desktop-only" [links]="[
+    { label: 'Política', href: '#' },
+    { label: 'Esportes', href: '#' },
+    { label: 'Entretenimento', href: '#' },
+    { label: 'Ciência', href: '#' },
+    { label: 'Colunas', href: '#' }]" />
+
+    <!-- MOBILE -->
+    <div class="mobile-only">
+        <button id="menu-button" nz-button nzType="text" (click)="openMenu()">
+            <span nz-icon nzType="menu"></span>
+        </button>
+
+        <nz-drawer [nzClosable]="true" [nzVisible]="visible()" nzPlacement="left" nzTitle="Categoria"
+            (nzOnClose)="closeMenu()" [nzBodyStyle]="{ 'background-color': '#222', 'color': '#fff' }">
+
+            <ng-container *nzDrawerContent>
+                <ul class="mobile-menu-list">
+                    @for (category of categories(); track category.label) {
+                    <li>
+                        <a [href]="category.href" (click)="closeMenu()">{{ category.label }}</a>
+                    </li>
+                    }
+                </ul>
+            </ng-container>
+        </nz-drawer>
+    </div>
+
+    <div id="nav-actions">
+        <app-search-bar />
+        <div id="nav-buttons">
+            <app-button label="Email" variant="link" icon="mail" />
+            <app-button label="Entre" variant="link" icon="user" />
+            <app-button label="Assine" />
+        </div>
+    </div>
+</nav>
