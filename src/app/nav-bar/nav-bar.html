@@ -1,12 +1,11 @@
 <nav>
     <!-- DESKTOP -->
-    <ul class="nav-links desktop-only">
-        @for (category of categories(); track category.label) {
-        <li>
-            <a [href]="category.href">{{ category.label }}</a>
-        </li>
-        }
-    </ul>
+    <app-links class="desktop-only" [links]="[
+    { label: 'Política', href: '#' },
+    { label: 'Esportes', href: '#' },
+    { label: 'Entretenimento', href: '#' },
+    { label: 'Ciência', href: '#' },
+    { label: 'Colunas', href: '#' }]" />
 
     <!-- MOBILE -->
     <div class="mobile-only">
