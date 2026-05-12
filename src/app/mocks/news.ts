@@ -9,11 +9,9 @@ export const newsMock: INews[] = [
     image: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564',
     created: new Date('2026-05-12'),
     updated: null,
-    author: {
-      name: 'Ana Souza',
-    },
+    author: 1,
     category: 'ciencia',
-    main: true
+    main: true,
   },
   {
     title: 'Seleção brasileira vence amistoso internacional',
@@ -23,9 +21,7 @@ export const newsMock: INews[] = [
     image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018',
     created: new Date('2026-05-02'),
     updated: new Date('2026-05-02'),
-    author: {
-      name: 'Carlos Mendes',
-    },
+    author: 1,
     category: 'esporte',
   },
   {
@@ -36,9 +32,7 @@ export const newsMock: INews[] = [
     image: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba',
     created: new Date('2026-05-03'),
     updated: new Date('2026-05-03'),
-    author: {
-      name: 'Fernanda Lima',
-    },
+    author: 2,
     category: 'entretenimento',
   },
   {
@@ -49,9 +43,7 @@ export const newsMock: INews[] = [
     image: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620',
     created: new Date('2026-05-04'),
     updated: new Date('2026-05-04'),
-    author: {
-      name: 'Ricardo Alves',
-    },
+    author: 3,
     category: 'politica',
   },
   {
@@ -62,9 +54,7 @@ export const newsMock: INews[] = [
     image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3',
     created: new Date('2026-05-05'),
     updated: new Date('2026-05-05'),
-    author: {
-      name: 'Juliana Rocha',
-    },
+    author: 5,
     category: 'colunas',
   },
   {
@@ -75,9 +65,7 @@ export const newsMock: INews[] = [
     image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276',
     created: new Date('2026-05-06'),
     updated: new Date('2026-05-06'),
-    author: {
-      name: 'Marcos Oliveira',
-    },
+    author: 6,
     category: 'ciencia',
   },
   {
@@ -88,9 +76,7 @@ export const newsMock: INews[] = [
     image: 'https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a',
     created: new Date('2026-05-07'),
     updated: new Date('2026-05-07'),
-    author: {
-      name: 'Patrícia Gomes',
-    },
+    author: 3,
     category: 'esporte',
   },
   {
@@ -101,9 +87,7 @@ export const newsMock: INews[] = [
     image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f',
     created: new Date('2026-05-08'),
     updated: new Date('2026-05-08'),
-    author: {
-      name: 'Beatriz Costa',
-    },
+    author: 7,
     category: 'entretenimento',
   },
 ];

@@ -7,10 +7,11 @@ import { QuotationCard } from './quotation-card/quotation-card';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NewsCard } from './components/news-card/news-card';
 import { newsMock } from './mocks/news';
+import { AuthorCarousel } from "./components/author-carousel/author-carousel";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Footer, NavBar, WeatherCard, QuotationCard, NzLayoutModule, NewsCard],
+  imports: [RouterOutlet, Footer, NavBar, WeatherCard, QuotationCard, NzLayoutModule, NewsCard, AuthorCarousel],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
