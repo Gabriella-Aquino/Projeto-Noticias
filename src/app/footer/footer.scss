@@ -1,0 +1,38 @@
+footer {
+  height: auto;
+  min-height: 22rem;
+  width: 100%;
+  padding: 4.6rem 4rem;
+  margin: 0;
+  background-color: #222;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+
+  #logo-container {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: 'Frank Ruhl Libre';
+    img {
+      width: 10rem;
+      height: 10rem;
+    }
+    span {
+      font-size: 2rem;
+      letter-spacing: 10%;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2.4rem;
+    height: auto;
+  }
+}
