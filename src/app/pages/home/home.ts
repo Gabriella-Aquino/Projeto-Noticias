@@ -5,10 +5,11 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NewsCard } from '../../components/news-card/news-card';
 import { AuthorCarousel } from '../../components/author-carousel/author-carousel';
 import { newsMock } from '../../mocks/news';
+import { LogoWithRedirect } from '../../logo-with-redirect/logo-with-redirect';
 
 @Component({
   selector: 'app-home',
-  imports: [ WeatherCard, QuotationCard, NzLayoutModule, NewsCard, AuthorCarousel],
+  imports: [ WeatherCard, QuotationCard, NzLayoutModule, NewsCard, AuthorCarousel, LogoWithRedirect],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
