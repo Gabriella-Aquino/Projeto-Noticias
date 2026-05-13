@@ -1,0 +1,53 @@
+.mainContainer {
+  margin: 30px;
+}
+
+nz-layout {
+  background-color: transparent;
+}
+
+nz-sider {
+  background-color: transparent;
+}
+
+.siderContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  app-news-card {
+    padding-right: 20px;
+    padding-bottom: 40px;
+  }
+
+  .secondaryNews {
+    display: flex;
+    gap: 20px;
+    app-news-card {
+      width: 100%;
+    }
+  }
+}
+
+.tertiaryNoticie {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.separator {
+  border-top: 1px solid #e6e6e6;
+}
+section {
+  display: flex;
+  justify-content: space-between;
+  margin: 2.4rem 3.2%;
+  align-items: flex-start;
+  height: 10rem;
+  .daily-info {
+    width: 22rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+}
