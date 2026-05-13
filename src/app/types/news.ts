@@ -2,6 +2,7 @@ import { IAuthor } from './author';
 import { ICategory } from './category';
 
 export interface INews {
+  id: number;
   title: string;
   subTitle: string;
   content: string;

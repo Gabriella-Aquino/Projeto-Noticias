@@ -1,72 +1,7 @@
 <app-nav-bar />
+
 <main>
-  <section>
-    <img src="assets/icons/logo-black.svg" />
-    <div class="daily-info">
-      <app-weather-card
-        [infos]="{
-          local: 'Pau dos ferros',
-          minDegree: 30,
-          maxDegree: 32,
-          weather: 'Nublado',
-          season: 'Inverno',
-        }"
-      />
-      <app-quotation-card [infos]="{ dollar: 4.5, euro: 5.5 }" />
-    </div>
-  </section>
-
-  <nz-layout class="mainContainer">
-    <nz-sider nzWidth="75%">
-      <div class="siderContainer">
-        @if (mainNews) {
-          <app-news-card
-            [title]="mainNews.title"
-            [image]="mainNews.image"
-            [subtitle]="mainNews.subTitle"
-            [category]="mainNews.category"
-            [variant]="'primary'"
-            [updated]="mainNews.updated"
-            [created]="mainNews.created"
-          ></app-news-card>
-        }
-        <div class="secondaryNews">
-          @for (news of secondeNews; track $index) {
-            <app-news-card
-              [title]="news.title"
-              [image]="news.image"
-              [subtitle]="news.subTitle"
-              [category]="news.category"
-              [updated]="news.updated"
-              [created]="news.created"
-            ></app-news-card>
-          }
-        </div>
-      </div>
-    </nz-sider>
-
-    <nz-layout class="">
-      <nz-content>
-        <div class="tertiaryNoticie">
-          @for (news of tertiaryNews; track $index) {
-            <app-news-card
-              class="separator"
-              [title]="news.title"
-              [subtitle]="news.subTitle"
-              [category]="news.category"
-              [image]="news.image"
-              [variant]="'tertiary'"
-              [updated]="news.updated"
-              [created]="news.created"
-            ></app-news-card>
-          }
-        </div>
-      </nz-content>
-    </nz-layout>
-  </nz-layout>
-
-  <app-author-carousel></app-author-carousel>
+  <router-outlet />
 </main>
 
 <app-footer />
-<router-outlet />
