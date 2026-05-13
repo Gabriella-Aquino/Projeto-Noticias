@@ -3,11 +3,12 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { newsMock } from '../../mocks/news';
 import { AUTHORS_MOCK } from '../../mocks/author';
+import { LogoWithRedirect } from '../../logo-with-redirect/logo-with-redirect';
 
 @Component({
   selector: 'app-news',
   standalone: true,
-  imports: [DatePipe, RouterLink], 
+  imports: [DatePipe, RouterLink, LogoWithRedirect], 
   templateUrl: './news.html',
   styleUrl: './news.scss',
 })

@@ -1,11 +1,5 @@
 <div class="news-container">
-    <a routerLink='/'>
-        <div class="logo-container">
-            <img src="assets/icons/logo-black.svg" alt="Logo">
-            <span>Notícias</span>
-        </div>
-    </a>
-
+    <app-logo-with-redirect />
     @if (newsData()) {
         <div class="news">
             <section class="news-info">
