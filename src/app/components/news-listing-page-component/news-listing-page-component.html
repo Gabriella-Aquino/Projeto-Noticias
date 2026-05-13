@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="content">
+    @if (page() === 'columnist') {
+      <div class="headerColumnist">
+        <img [src]="imageToRender()" [alt]="page() === 'columnist' && 'Avatar do colunista'" />
+      </div>
+      <span>{{ title() }} </span>
+    } @else {
+      <app-logo-with-redirect />
+    }
+    <div class="newsContainer"></div>
+  </div>
+</div>
