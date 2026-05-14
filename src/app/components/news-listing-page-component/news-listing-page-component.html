@@ -13,6 +13,7 @@
     <div class="newsContainer">
       @for (news of news(); track $index) {
         <app-news-card
+          class="listingPrimaryCard"
           [id]="news.id"
           [title]="news.title"
           [image]="news.image"

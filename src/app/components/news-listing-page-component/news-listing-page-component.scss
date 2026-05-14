@@ -49,3 +49,7 @@
   border-top: #a3a3a3 1px solid;
   margin: 40px 0;
 }
+
+:host ::ng-deep app-news-card.listingPrimaryCard .primary img {
+  height: 220px;
+}
