@@ -1,1 +1,4 @@
-export type ICategory = 'politica' | 'esporte' | 'entretenimento' | 'ciencia' | 'colunas';
+export interface ICategory {
+  id: number;
+  name: string;
+}

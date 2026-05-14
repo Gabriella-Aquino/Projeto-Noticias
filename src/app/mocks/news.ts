@@ -25,7 +25,7 @@ export const newsMock: INews[] = [
     created: new Date('2026-05-12T10:00:00'),
     updated: new Date('2026-05-13T09:30:00'),
     author: 1,
-    category: 'ciencia',
+    category: 4,
     main: true,
   },
   {
@@ -41,7 +41,7 @@ export const newsMock: INews[] = [
     created: new Date('2026-05-02T16:00:00'),
     updated: new Date('2026-05-02T18:30:00'),
     author: 1,
-    category: 'esporte',
+    category: 2,
   },
   {
     id: 3,
@@ -56,7 +56,7 @@ export const newsMock: INews[] = [
     created: new Date('2026-05-03T09:00:00'),
     updated: new Date('2026-05-03T11:00:00'),
     author: 2,
-    category: 'entretenimento',
+    category: 3,
   },
   {
     id: 4,
@@ -71,7 +71,7 @@ export const newsMock: INews[] = [
     created: new Date('2026-05-04T14:20:00'),
     updated: new Date('2026-05-04T16:45:00'),
     author: 3,
-    category: 'politica',
+    category: 1,
   },
   {
     id: 5,
@@ -86,7 +86,7 @@ export const newsMock: INews[] = [
     created: new Date('2026-05-05T08:30:00'),
     updated: new Date('2026-05-05T10:00:00'),
     author: 5,
-    category: 'colunas',
+    category: 5,
   },
   {
     id: 6,
@@ -101,7 +101,7 @@ export const newsMock: INews[] = [
     created: new Date('2026-05-06T12:00:00'),
     updated: new Date('2026-05-06T14:15:00'),
     author: 6,
-    category: 'ciencia',
+    category: 4,
   },
   {
     id: 7,
@@ -116,7 +116,7 @@ export const newsMock: INews[] = [
     created: new Date('2026-05-07T21:00:00'),
     updated: new Date('2026-05-07T23:50:00'),
     author: 3,
-    category: 'esporte',
+    category: 2,
   },
   {
     id: 8,
@@ -131,6 +131,6 @@ export const newsMock: INews[] = [
     created: new Date('2026-05-08T15:30:00'),
     updated: new Date('2026-05-08T18:00:00'),
     author: 7,
-    category: 'entretenimento',
+    category: 3,
   },
 ];
