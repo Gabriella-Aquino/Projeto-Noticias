@@ -5,9 +5,9 @@
         <img [src]="imageToRender()" [alt]="page() === 'columnist' && 'Avatar do colunista'" />
       </div>
       <span class="titleColumnist">{{ title() }} </span>
-      <app-logo-with-redirect class="logoAbsolute"/>
+      <app-logo-with-redirect [showTitle]="false" class="logoAbsolute"/>
     } @else {
-      <app-logo-with-redirect [title]="title()"/>
+      <app-logo-with-redirect/>
     }
     <div class="newsContainer"></div>
   </div>
