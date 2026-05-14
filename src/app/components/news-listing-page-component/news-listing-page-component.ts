@@ -19,14 +19,14 @@ export class NewsListingPageComponent {
 
   imageToRender = computed(() => {
     if (this.page() !== 'columnist') {
-      return
+      return 'assets/icons/logo-black.svg';
     }
 
     const columnist = AUTHORS_MOCK.find(
       (author) => author.id === this.columnistId()
     );
 
-    return columnist?.avatar ?? 'assets/icons/logo-black.svg';
+    return columnist?.avatar ?? 'assets/icons/avatar-default.png';
   });
 
 
