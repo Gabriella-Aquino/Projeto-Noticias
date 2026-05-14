@@ -1,13 +1,15 @@
+@use 'tools' as t;
+@use 'fonts' as f;
+@use 'colors' as c;
+
 .logo-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    @include t.flex-center;
+    @include t.flex-column;
     gap: 1.2rem;
     span {
-      font-family: 'Frank Ruhl Libre';
-      font-size: 2rem;
-      color: #222;
+      font-family: f.$logo-pj-accent-font;
+      font-size: f.$logo-pj-subtitle-size;
+      color: c.$logo-pj-black;
       font-weight: 550;
       &.white-text{
         color: white;

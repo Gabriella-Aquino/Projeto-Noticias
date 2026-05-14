@@ -1,3 +1,6 @@
+@use 'tools' as t;
+@use 'fonts' as f;
+
 footer {
   height: auto;
   min-height: 22rem;
@@ -12,11 +15,10 @@ footer {
 
   #logo-container {
     color: white;
-    display: flex;
-    flex-direction: column;
+    @include t.flex-column;
     align-items: center;
     gap: 0.4rem;
-    font-family: 'Frank Ruhl Libre';
+    font-family: f.$logo-pj-accent-font;
     img {
       width: 10rem;
       height: 10rem;
