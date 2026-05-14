@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { AUTHORS_MOCK } from '../../mocks/author';
 import { IAuthor } from '../../types/author';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-author-carousel',
-  imports: [NzCarouselModule],
+  imports: [NzCarouselModule, RouterLink],
   templateUrl: './author-carousel.html',
   styleUrl: './author-carousel.scss',
 })
