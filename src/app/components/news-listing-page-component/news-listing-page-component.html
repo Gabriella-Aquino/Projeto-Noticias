@@ -4,9 +4,10 @@
       <div class="headerColumnist">
         <img [src]="imageToRender()" [alt]="page() === 'columnist' && 'Avatar do colunista'" />
       </div>
-      <span>{{ title() }} </span>
+      <span class="titleColumnist">{{ title() }} </span>
+      <app-logo-with-redirect class="logoAbsolute"/>
     } @else {
-      <app-logo-with-redirect />
+      <app-logo-with-redirect [title]="title()"/>
     }
     <div class="newsContainer"></div>
   </div>

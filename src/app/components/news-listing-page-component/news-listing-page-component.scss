@@ -7,6 +7,7 @@
     width: 69.2rem;
     display: flex;
     flex-direction: column;
+    gap: 10px;
     align-items: center;
     margin-top: 7.2rem;
     background: #a3a3a3;
@@ -21,10 +22,11 @@
         width: 100%;
         object-fit: cover;
       }
-      span {
-        font-family: 'Lato', sans-serif;
-        font-weight: 700;
-      }
+    }
+    .titleColumnist {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
     }
 
     .newsContainer {
@@ -32,4 +34,10 @@
       height: 900px;
     }
   }
+}
+
+.logoAbsolute {
+  position: absolute;
+  top: 0;
+  left: 0;
 }

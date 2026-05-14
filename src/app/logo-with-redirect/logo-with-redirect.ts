@@ -9,5 +9,6 @@ import { RouterLink } from '@angular/router';
 })
 export class LogoWithRedirect {
   showTitle = input(true, { transform: booleanAttribute });
+  title = input<string>()
   variant = input<'black' | 'white'>('black');
 }
