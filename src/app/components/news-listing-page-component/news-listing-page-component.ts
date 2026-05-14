@@ -3,10 +3,11 @@ import { INews } from '../../types/news';
 import { NgClass } from '@angular/common';
 import { AUTHORS_MOCK } from '../../mocks/author';
 import { LogoWithRedirect } from '../../logo-with-redirect/logo-with-redirect';
+import { NewsCard } from '../news-card/news-card';
 
 @Component({
   selector: 'app-news-listing-page-component',
-  imports: [NgClass, LogoWithRedirect],
+  imports: [NgClass, LogoWithRedirect, NewsCard],
   templateUrl: './news-listing-page-component.html',
   styleUrl: './news-listing-page-component.scss',
 })
