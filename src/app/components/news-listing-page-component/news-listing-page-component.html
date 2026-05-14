@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="content">
+    @if (page() === 'columnist') {
+      <div class="headerColumnist">
+        <img [src]="imageToRender()" [alt]="page() === 'columnist' && 'Avatar do colunista'" />
+      </div>
+      <span class="titleColumnist">{{ title() }} </span>
+      <app-logo-with-redirect [showTitle]="false" class="logoAbsolute" />
+    } @else {
+      <app-logo-with-redirect />
+    }
+    <div class="separator"></div>
+    <div class="newsContainer">
+      @for (news of news(); track $index) {
+        <app-news-card
+          class="listingPrimaryCard"
+          [id]="news.id"
+          [title]="news.title"
+          [image]="news.image"
+          [subtitle]="news.subTitle"
+          [category]="news.category"
+          [updated]="news.updated"
+          [created]="news.created"
+          variant="primary"
+        ></app-news-card>
+      }
+    </div>
+  </div>
+</div>

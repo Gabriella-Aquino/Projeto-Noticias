@@ -10,6 +10,6 @@ export interface INews {
   created: Date;
   updated: Date | null;
   author: IAuthor["id"];
-  category: ICategory;
+  category: ICategory['id'];
   main?: boolean;
 }

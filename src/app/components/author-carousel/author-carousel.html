@@ -5,16 +5,15 @@
       <div nz-carousel-content>
         <div class="card-wrapper">
           @for (item of group; track item.id) {
-            <div class="card-container">
+            <a class="card-container" [routerLink]="['/columnist', item.id]">
               <div class="custom-card">
                 <img
                   [src]="item.avatar ? item.avatar : 'assets/icons/avatar-default.png'"
                   [alt]="item.name"
                 >
-                <!-- Se quiser exibir o nome abaixo da foto -->
               </div>
               <span>{{ item.name }}</span>
-            </div>
+            </a>
           }
         </div>
       </div>

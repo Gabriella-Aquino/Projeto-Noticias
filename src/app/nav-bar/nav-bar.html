@@ -1,11 +1,6 @@
 <nav>
     <!-- DESKTOP -->
-    <app-links class="desktop-only" [links]="[
-    { label: 'Política', href: '#' },
-    { label: 'Esportes', href: '#' },
-    { label: 'Entretenimento', href: '#' },
-    { label: 'Ciência', href: '#' },
-    { label: 'Colunas', href: '#' }]" />
+    <app-links class="desktop-only" [links]="categories()" />
 
     <!-- MOBILE -->
     <div class="mobile-only">
