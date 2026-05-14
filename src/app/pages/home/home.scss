@@ -34,6 +34,16 @@ nz-sider {
   gap: 20px;
 }
 
+.otherNews{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  align-items: start;
+  gap: 40px;
+  margin-top: 40px;
+  padding: 40px;
+  width: 100%;
+}
+
 .separator {
   border-top: 1px solid #e6e6e6;
 }
