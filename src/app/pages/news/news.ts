@@ -8,7 +8,7 @@ import { LogoWithRedirect } from '../../logo-with-redirect/logo-with-redirect';
 @Component({
   selector: 'app-news',
   standalone: true,
-  imports: [DatePipe, RouterLink, LogoWithRedirect], 
+  imports: [DatePipe, LogoWithRedirect], 
   templateUrl: './news.html',
   styleUrl: './news.scss',
 })
