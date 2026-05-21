@@ -1,32 +1,36 @@
 <div class="news-container">
-    <app-logo-with-redirect />
-    @if (newsData()) {
-        <div class="news">
-            <section class="news-info">
-                <header>
-                    <hgroup>
-                        <h1>{{ newsData()?.title }}</h1>
-                        <p class="subtitle">{{ newsData()?.subTitle }}</p>
-                    </hgroup>
-                    <hr>
-                    <div class="meta-data">
-                        <address>Publicado por {{ authorData()?.name || 'Redação' }}</address>
-                        <div class="realease-info">
-                            <p>Publicado em: {{ newsData()?.created | date:'dd/MM/yyyy' }}</p>
-                            
-                            @if (updatedAtDate()) {
-                                <p> - </p>
-                                <p>Atualizado há {{ timeAgo() }}</p>
-                            }
-                        </div>
-                    </div>
-                </header>
-            </section>
-            <img src="{{newsData()?.image}}">
-            <section class="news-content" [innerHTML]="newsData()?.content">
-            </section>
-        </div>
-    } @else {
-        <p>Notícia não encontrada.</p>
-    }
+  <app-logo-with-redirect />
+  @if (newsData()) {
+    <div class="news">
+      <section class="news-info">
+        <header>
+          <hgroup>
+            <h1>{{ newsData()?.title }}</h1>
+            <p class="subtitle">{{ newsData()?.subTitle }}</p>
+          </hgroup>
+          <hr />
+          <div class="meta-data">
+            <address>Publicado por {{ authorData()?.name || 'Redação' }}</address>
+            <div class="realease-info">
+              <p>Publicado em: {{ newsData()?.created | date: 'dd/MM/yyyy' }}</p>
+
+              @if (updatedAtDate()) {
+                <p>-</p>
+                <p>Atualizado há {{ timeAgo() }}</p>
+              }
+            </div>
+          </div>
+        </header>
+      </section>
+      <div class="news-image-wrapper">
+        @if (!imageLoaded()) {
+          <div class="imageSkeleton"></div>
+        }
+        <img loading="lazy" src="{{ newsData()?.image }}" (load)="onImageLoad()" [class.isLoaded]="imageLoaded()" />
+      </div>
+      <section class="news-content" [innerHTML]="newsData()?.content"></section>
+    </div>
+  } @else {
+    <p>Notícia não encontrada.</p>
+  }
 </div>

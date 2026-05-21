@@ -1,6 +1,6 @@
 <a routerLink='/'>
     <div class="logo-container">
-        <img [src]="variant() === 'white' ? 'assets/icons/logo-white.svg' : 'assets/icons/logo-black.svg'" alt="Logo">
+        <img loading="lazy" [src]="variant() === 'white' ? 'assets/icons/logo-white.svg' : 'assets/icons/logo-black.svg'" alt="Logo">
 
         @if (showTitle()) {
         <span [class.white-text]="variant() === 'white'">Notícias</span>

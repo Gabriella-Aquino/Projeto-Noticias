@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
 import { newsMock } from '../../mocks/news';
@@ -14,6 +14,7 @@ import { LogoWithRedirect } from '../../logo-with-redirect/logo-with-redirect';
 })
 export class News {
   private route = inject(ActivatedRoute);
+  imageLoaded = signal(false);
 
   newsData = computed(() => {
     const id = this.route.snapshot.paramMap.get('id');
@@ -44,4 +45,15 @@ export class News {
     const diffInDays = Math.floor(diffInHours / 24);
     return `${diffInDays}d`;
   });
+
+  constructor() {
+    effect(() => {
+      this.newsData()?.image;
+      this.imageLoaded.set(false);
+    });
+  }
+
+  onImageLoad() {
+    this.imageLoaded.set(true);
+  }
 }

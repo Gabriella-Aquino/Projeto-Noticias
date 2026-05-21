@@ -65,4 +65,37 @@
       margin-bottom: 2.4rem;
     }
   }
+
+  .news-image-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .imageSkeleton {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, #ececec 25%, #f7f7f7 37%, #ececec 63%);
+    background-size: 400% 100%;
+    animation: skeleton-loading 1.3s ease-in-out infinite;
+  }
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 200ms ease;
+  }
+
+  img.isLoaded {
+    opacity: 1;
+  }
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
 }

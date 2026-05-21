@@ -3,7 +3,12 @@
     <div class="cardContainer" [class.primary]="variant() === 'primary'" [class.secondary]="variant() === 'secondary'"
       [class.tertiary]="variant() === 'tertiary'">
       @if (image()) {
-      <img src="{{ image() }}" />
+        <div class="imageWrapper">
+          @if (!imageLoaded()) {
+            <div class="imageSkeleton"></div>
+          }
+          <img loading="lazy" src="{{ image() }}" (load)="onImageLoad()" [class.isLoaded]="imageLoaded()" />
+        </div>
       }
       <div class="infoContainer">
         <h3>{{ title() }}</h3>

@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, effect, input, signal } from '@angular/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { TimeAgoPipe } from '../../pipes/time-ago-pipe';
@@ -22,4 +22,16 @@ export class NewsCard {
   created = input.required<Date>();
 
   variant = input<INewsCardVariant>('secondary');
+  imageLoaded = signal(false);
+
+  constructor() {
+    effect(() => {
+      this.image();
+      this.imageLoaded.set(false);
+    });
+  }
+
+  onImageLoad() {
+    this.imageLoaded.set(true);
+  }
 }
