@@ -1,0 +1,19 @@
+<div
+  class="imageWrapper"
+  [style.width.px]="width()"
+  [style.height.px]="height()"
+>
+  @if (!loaded()) {
+    <div class="imageSkeleton"></div>
+  }
+
+  <img
+    [ngSrc]="src()"
+    [alt]="alt()"
+    [width]="width()"
+    [height]="height()"
+    loading="lazy"
+    (load)="onLoad()"
+    [class.loaded]="loaded()"
+  />
+</div>

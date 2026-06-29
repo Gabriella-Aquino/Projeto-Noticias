@@ -21,7 +21,7 @@ export const newsMock: INews[] = [
       
       <p>A comunidade científica global celebrou os dados, afirmando que o James Webb finalmente atingiu seu objetivo primário: observar o "Amanhecer Cósmico", o momento exato em que a luz das primeiras estrelas viajou pelo espaço vazio para dar fim à era das trevas universais.</p>
     `,
-    image: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564',
+    image: 'https://images.pexels.com/photos/33630927/pexels-photo-33630927.jpeg?auto=compress&cs=tinysrgb&w=1280',
     created: new Date('2026-05-12T10:00:00'),
     updated: new Date('2026-05-13T09:30:00'),
     author: 1,
@@ -37,7 +37,7 @@ export const newsMock: INews[] = [
       <p>O gol decisivo saiu aos 43 minutos do segundo tempo, após uma jogada individual brilhante pela lateral esquerda. <strong>O técnico destacou a resiliência do grupo</strong>, afirmando que o entrosamento está evoluindo para as competições oficiais que começam no próximo semestre.</p>
       <p>A torcida presente no estádio lotado celebrou a atuação dos jovens estreantes, que trouxeram velocidade e criatividade ao meio-campo da equipe nacional.</p>
     `,
-    image: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018',
+    image: 'https://images.pexels.com/photos/32981432/pexels-photo-32981432.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-02T16:00:00'),
     updated: new Date('2026-05-02T18:30:00'),
     author: 1,
@@ -52,7 +52,7 @@ export const newsMock: INews[] = [
       <p>Críticos elogiaram a profundidade do roteiro e a construção do mundo fictício, que adapta fielmente a obra literária original. <strong>A expectativa é que a segunda temporada seja confirmada ainda este mês</strong>, dado o engajamento massivo nas redes sociais.</p>
       <p>A trilha sonora, composta por artistas premiados, também se tornou um fenômeno à parte, dominando as paradas de streaming de música globalmente.</p>
     `,
-    image: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba',
+    image: 'https://images.pexels.com/photos/14746411/pexels-photo-14746411.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-03T09:00:00'),
     updated: new Date('2026-05-03T11:00:00'),
     author: 2,
@@ -67,7 +67,7 @@ export const newsMock: INews[] = [
       <p>Analistas econômicos alertam que, embora a medida seja positiva para o consumo, <strong>é necessário um ajuste fiscal rigoroso</strong> para evitar o aumento da inflação no longo prazo. O projeto deve passar por votação final na próxima terça-feira.</p>
       <p>O governo defende que os novos incentivos permitirão que pequenas e médias empresas modernizem seu parque industrial, gerando mais empregos e aumentando a competitividade do país.</p>
     `,
-    image: 'https://images.unsplash.com/photo-1529107386315-e1a2ed48a620',
+    image: 'https://images.pexels.com/photos/34824202/pexels-photo-34824202.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-04T14:20:00'),
     updated: new Date('2026-05-04T16:45:00'),
     author: 3,
@@ -82,7 +82,7 @@ export const newsMock: INews[] = [
       <p><strong>"A IA não é mais uma promessa, é a infraestrutura do futuro"</strong>, afirmou o consultor sênior em tecnologia. O grande desafio agora reside na ética e na regulamentação do uso desses dados em larga escala.</p>
       <p>O mercado de trabalho também está se adaptando, com uma demanda crescente por profissionais que saibam integrar ferramentas de automação em fluxos de trabalho criativos e técnicos.</p>
     `,
-    image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3',
+    image: 'https://images.pexels.com/photos/8386437/pexels-photo-8386437.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-05T08:30:00'),
     updated: new Date('2026-05-05T10:00:00'),
     author: 5,
@@ -97,7 +97,7 @@ export const newsMock: INews[] = [
       <p>Além da economia financeira, <strong>a preocupação com a sustentabilidade</strong> tem sido um fator decisivo para os novos consumidores. O sistema permite que o excesso de energia gerado seja vendido de volta para a rede elétrica local.</p>
       <p>Governos estaduais estão estudando novos subsídios para condomínios populares, visando democratizar o acesso à energia limpa e reduzir a pressão sobre as hidrelétricas nacionais.</p>
     `,
-    image: 'https://images.unsplash.com/photo-1509391366360-2e959784a276',
+    image: 'https://images.pexels.com/photos/9799702/pexels-photo-9799702.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-06T12:00:00'),
     updated: new Date('2026-05-06T14:15:00'),
     author: 6,
@@ -112,7 +112,7 @@ export const newsMock: INews[] = [
       <p>O título marca o fim de um jejum de dez anos sem conquistas expressivas para o clube. <strong>A torcida invadiu as ruas</strong> para celebrar o troféu que coloca a equipe de volta no topo do ranking nacional.</p>
       <p>Especialistas destacam que a mudança na gestão técnica no início da temporada foi fundamental para reconstruir a confiança do elenco e implementar um esquema tático mais ofensivo.</p>
     `,
-    image: 'https://images.unsplash.com/photo-1517927033932-b3d18e61fb3a',
+    image: 'https://images.pexels.com/photos/7005685/pexels-photo-7005685.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-07T21:00:00'),
     updated: new Date('2026-05-07T23:50:00'),
     author: 3,
@@ -127,7 +127,7 @@ export const newsMock: INews[] = [
       <p>O setor gastronômico foi um dos mais procurados, com chefs renomados oferecendo pratos de diversas culturas. <strong>A organização estimou um público de 200 mil pessoas</strong> ao longo dos três dias de evento.</p>
       <p>A segurança e o transporte público foram reforçados, garantindo que o festival ocorresse sem incidentes graves, sendo elogiado pela prefeitura como um exemplo de ocupação urbana positiva.</p>
     `,
-    image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f',
+    image: 'https://images.pexels.com/photos/12657546/pexels-photo-12657546.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-08T15:30:00'),
     updated: new Date('2026-05-08T18:00:00'),
     author: 7,
@@ -144,7 +144,7 @@ export const newsMock: INews[] = [
 
     <p>Especialistas afirmam que o avanço representa um passo importante na criação de materiais mais duráveis e sustentáveis, reduzindo desperdícios industriais e custos de manutenção.</p>
   `,
-    image: 'https://images.unsplash.com/photo-1518152006812-edab29b069ac',
+    image: 'https://images.pexels.com/photos/8533136/pexels-photo-8533136.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-09T08:00:00'),
     updated: new Date('2026-05-09T10:15:00'),
     author: 4,
@@ -161,7 +161,7 @@ export const newsMock: INews[] = [
 
     <p>O lançamento oficial está previsto para o próximo semestre, inicialmente em mercados da Europa e Ásia.</p>
   `,
-    image: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70',
+    image: 'https://images.pexels.com/photos/24376862/pexels-photo-24376862.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-09T11:30:00'),
     updated: new Date('2026-05-09T13:00:00'),
     author: 6,
@@ -178,7 +178,7 @@ export const newsMock: INews[] = [
 
     <p>Escolas públicas terão acesso gratuito ao evento em dias específicos da semana.</p>
   `,
-    image: 'https://images.unsplash.com/photo-1516117172878-fd2c41f4a759',
+    image: 'https://images.pexels.com/photos/1452701/pexels-photo-1452701.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-10T09:45:00'),
     updated: new Date('2026-05-10T12:20:00'),
     author: 2,
@@ -195,7 +195,7 @@ export const newsMock: INews[] = [
 
     <p>Especialistas observam que o principal desafio ainda é expandir a infraestrutura de abastecimento da tecnologia.</p>
   `,
-    image: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3',
+    image: 'https://images.pexels.com/photos/13012408/pexels-photo-13012408.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-10T14:00:00'),
     updated: new Date('2026-05-10T16:40:00'),
     author: 5,
@@ -212,7 +212,7 @@ export const newsMock: INews[] = [
 
     <p>Com a vitória, o clube garantiu presença na competição mundial do próximo ano.</p>
   `,
-    image: 'https://images.unsplash.com/photo-1547347298-4074fc3086f0',
+    image: 'https://images.pexels.com/photos/17390399/pexels-photo-17390399.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-11T18:30:00'),
     updated: new Date('2026-05-11T22:10:00'),
     author: 1,
@@ -229,7 +229,7 @@ export const newsMock: INews[] = [
 
     <p>O relatório também alerta para desafios relacionados à privacidade de dados e segurança cibernética.</p>
   `,
-    image: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df',
+    image: 'https://images.pexels.com/photos/33803484/pexels-photo-33803484.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-12T07:50:00'),
     updated: new Date('2026-05-12T09:10:00'),
     author: 7,
@@ -246,7 +246,7 @@ export const newsMock: INews[] = [
 
     <p>Apesar do entusiasmo, especialistas reforçam que ainda não existem evidências concretas de organismos vivos no planeta analisado.</p>
   `,
-    image: 'https://images.unsplash.com/photo-1462332420958-a05d1e002413',
+    image: 'https://images.pexels.com/photos/18507018/pexels-photo-18507018.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-12T18:40:00'),
     updated: new Date('2026-05-12T20:00:00'),
     author: 4,
@@ -263,7 +263,7 @@ export const newsMock: INews[] = [
 
     <p>Além de idiomas tradicionais, cursos de coreano e japonês também apresentaram forte crescimento impulsionado pela cultura pop asiática.</p>
   `,
-    image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a',
+    image: 'https://images.pexels.com/photos/14814047/pexels-photo-14814047.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-13T08:20:00'),
     updated: new Date('2026-05-13T10:10:00'),
     author: 2,
@@ -280,7 +280,7 @@ export const newsMock: INews[] = [
 
     <p>Especialistas afirmam que auroras boreais poderão ser vistas em regiões incomuns caso o fenômeno atinja grande intensidade geomagnética.</p>
   `,
-    image: 'https://images.unsplash.com/photo-1502134249126-9f3755a50d78',
+    image: 'https://images.pexels.com/photos/87611/sun-fireball-solar-flare-sunlight-87611.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-13T13:50:00'),
     updated: new Date('2026-05-13T15:00:00'),
     author: 6,
@@ -297,7 +297,7 @@ export const newsMock: INews[] = [
 
     <p>O anúncio gerou forte repercussão nas redes sociais, com leitores divididos entre entusiasmo e preocupação com possíveis mudanças no roteiro.</p>
   `,
-    image: 'https://images.unsplash.com/photo-1485846234645-a62644f84728',
+    image: 'https://images.pexels.com/photos/67654/pexels-photo-67654.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-13T16:30:00'),
     updated: new Date('2026-05-13T18:15:00'),
     author: 7,
@@ -314,7 +314,7 @@ export const newsMock: INews[] = [
 
     <p>Ferramentas acessíveis de desenvolvimento também contribuíram para democratizar a produção de jogos ao redor do mundo.</p>
   `,
-    image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420',
+    image: 'https://images.pexels.com/photos/9409819/pexels-photo-9409819.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-14T09:10:00'),
     updated: new Date('2026-05-14T11:00:00'),
     author: 5,
@@ -331,7 +331,7 @@ export const newsMock: INews[] = [
 
     <p>Especialistas reforçam que ainda serão necessários anos de acompanhamento antes da aprovação definitiva pelas agências reguladoras.</p>
   `,
-    image: 'https://images.unsplash.com/photo-1584036561566-baf8f5f1b144',
+    image: 'https://images.pexels.com/photos/6075033/pexels-photo-6075033.jpeg?auto=compress&cs=tinysrgb&w=640',
     created: new Date('2026-05-14T12:00:00'),
     updated: null,
     author: 1,

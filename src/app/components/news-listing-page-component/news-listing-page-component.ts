@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, computed, effect, input, signal } from '@angular/core';
 import { INews } from '../../types/news';
 import { NgClass } from '@angular/common';
 import { AUTHORS_MOCK } from '../../mocks/author';
@@ -26,4 +26,18 @@ export class NewsListingPageComponent {
 
     return columnist?.avatar ?? 'assets/icons/avatar-default.png';
   });
+
+  columnistImageLoaded = signal(false);
+
+  constructor() {
+    effect(() => {
+      this.imageToRender();
+      this.columnistImageLoaded.set(false);
+    });
+  }
+
+  onColumnistImageLoad() {
+    this.columnistImageLoaded.set(true);
+  }
+
 }

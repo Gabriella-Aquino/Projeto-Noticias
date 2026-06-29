@@ -10,11 +10,13 @@ nz-layout {
 
 nz-sider {
   background-color: transparent;
+  overflow: hidden;
 }
 
 .siderContainer {
   @include t.flex-column;
   gap: 20px;
+  overflow: hidden;
   app-news-card {
     padding-right: 20px;
     padding-bottom: 40px;
@@ -22,9 +24,12 @@ nz-sider {
 
   .secondaryNews {
     display: flex;
+    align-items: flex-start;
     gap: 20px;
     app-news-card {
-      width: 100%;
+      width: 0;
+      flex: 1;
+      min-width: 0;
     }
   }
 }
