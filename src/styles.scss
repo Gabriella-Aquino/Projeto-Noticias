@@ -1,1 +1,82 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300..900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+
+html {
+  font-size: 62.5%;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  height: 0;
+}
+
+.lato-light {
+  font-family: 'Lato', sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.lato-semibold {
+  font-family: 'Lato', sans-serif;
+  font-weight: 600;
+}
+
+.ant-drawer-content {
+  background-color: #222 !important;
+}
+
+.ant-drawer-header {
+  background-color: #222 !important;
+  border-bottom: 1px solid #444 !important;
+}
+
+.ant-drawer-title {
+  color: white !important;
+  font-size: 2rem;
+}
+
+.ant-drawer-close {
+  color: white !important;
+  .anticon {
+    color: white !important;
+  }
+}
+
+.ant-modal-content {
+  background-color: #333 !important;
+}
+
+.ant-modal-close {
+  background-color: #333 !important;
+}
+
+.ant-modal-header {
+  background-color: #333 !important;
+}
+
+.ant-modal-title {
+  color: white;
+}
+
+.ant-modal-close-x {
+  color: white;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+}

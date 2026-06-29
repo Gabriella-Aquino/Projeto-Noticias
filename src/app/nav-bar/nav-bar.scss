@@ -1,0 +1,80 @@
+@use 'tools' as t;
+@use 'colors' as c;
+@use 'fonts' as f;
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: c.$logo-pj-black;
+  height: 6rem;
+  padding: 0 t.$logo-pj-vertical-align 0 t.$logo-pj-navbar-align;
+}
+
+#nav-actions,
+#nav-buttons {
+  display: flex;
+  align-items: center;
+}
+
+#nav-actions {
+  gap: 4.4rem;
+}
+#nav-buttons {
+  gap: 2rem;
+}
+
+.mobile-only {
+  display: none;
+}
+
+#menu-button {
+  background: none;
+  color: white;
+  border: none;
+  font-size: f.$logo-pj-subtitle-size;
+  display: flex;
+  align-items: center;
+}
+
+.mobile-menu-list {
+  list-style: none;
+  @include t.flex-column;
+  padding: 0;
+  gap: 2rem;
+
+  a {
+    padding: 0.2rem 1.6rem;
+    color: white;
+    font-family: f.$logo-pj-main-font;
+    font-size: f.$logo-pj-regular-size;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      color: c.$logo-pj-red-hover;
+    }
+  }
+}
+
+@media (max-width: 1024px) {
+  nav {
+    padding: 0 t.$logo-pj-vertical-align;
+  }
+
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  #nav-actions {
+    gap: 2.4rem;
+  }
+
+  #nav-buttons {
+    gap: 1.6rem;
+  }
+}

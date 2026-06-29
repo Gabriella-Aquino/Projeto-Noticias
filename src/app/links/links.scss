@@ -1,0 +1,40 @@
+@use 'fonts' as f;
+@use 'colors' as c;
+
+ul {
+  display: flex;
+  gap: 0.8rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+
+  li {
+    border-right: 0.5px solid #ffffff;
+    &:last-child {
+      border-right: none;
+    }
+  }
+
+  a {
+    padding: 0.2rem 1.6rem;
+    color: #ffffff;
+    font-family: f.$logo-pj-main-font;
+    font-size: f.$logo-pj-regular-size;
+    text-decoration: none;
+
+    &:hover {
+      color: c.$logo-pj-red-hover;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  ul {
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+
+  li {
+    border-right: none !important;
+  }
+}

@@ -1,0 +1,21 @@
+<nz-card>
+  <a [routerLink]="['/news', id()]">
+    <div class="cardContainer" [class.primary]="variant() === 'primary'" [class.secondary]="variant() === 'secondary'"
+      [class.tertiary]="variant() === 'tertiary'">
+      @if (image()) {
+      <img src="{{ image() }}" />
+      }
+      <div class="infoContainer">
+        <h3>{{ title() }}</h3>
+        <h4>{{ subtitle() }}</h4>
+        <span class="lato-light">
+          @if (updated() && created() && updated()?.getTime() !== created().getTime()) {
+          Atualizado {{ updated() | timeAgo }}
+          } @else {
+          Criado {{ created() | timeAgo }}
+          }
+        </span>
+      </div>
+    </div>
+  </a>
+</nz-card>

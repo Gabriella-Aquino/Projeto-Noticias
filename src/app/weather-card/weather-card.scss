@@ -1,0 +1,35 @@
+@use 'fonts' as f;
+
+.container {
+    width: 100%;
+    height: 6.3rem;
+    padding: 0.8rem;
+    background-color: #222;
+
+    span{
+        font-family: f.$logo-pj-main-font;
+        color: white;
+    }
+
+  .city-degrees,
+  .season-weather {
+    display: flex;
+    gap: 1.6rem;
+    justify-content: space-between;
+  }
+
+  .season-weather{
+    text-transform: uppercase;
+    font-size: 1.2rem;
+  }
+
+  .city-degrees{
+    font-size: f.$logo-pj-regular-size;
+  }
+
+  .degrees{
+    display: flex;
+    width: 29%;
+    justify-content: space-between;
+  }
+}

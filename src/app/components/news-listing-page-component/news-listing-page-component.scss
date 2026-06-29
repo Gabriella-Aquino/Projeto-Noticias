@@ -1,0 +1,65 @@
+@use 'fonts' as f;
+@use 'tools' as t;
+
+.container {
+  @include t.flex-column;
+  align-items: center;
+  .content {
+    position: relative;
+    width: 69.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    margin-top: 7.2rem;
+
+    .headerColumnist {
+      width: 14rem;
+      aspect-ratio: 1/1;
+      border-radius: 50%;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    .header-category {
+      @include t.flex-column;
+      gap: 3.2rem;
+      h2 {
+        font-family: f.$logo-pj-main-font;
+        text-transform: uppercase;
+        font-size: 3.2rem;
+        font-weight: 300;
+      }
+    }
+    .titleColumnist {
+      font-family: 'Lato', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+    }
+    .newsContainer {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+  }
+}
+
+.logoAbsolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.separator {
+  width: 100%;
+  border-top: #a3a3a3 1px solid;
+  margin: 40px 0;
+}
+
+:host ::ng-deep app-news-card.listingPrimaryCard .primary img {
+  height: 220px;
+}

@@ -1,0 +1,22 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { NewsListingPageComponent } from './news-listing-page-component';
+
+describe('NewsListingPageComponent', () => {
+  let component: NewsListingPageComponent;
+  let fixture: ComponentFixture<NewsListingPageComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [NewsListingPageComponent],
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(NewsListingPageComponent);
+    component = fixture.componentInstance;
+    await fixture.whenStable();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

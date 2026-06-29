@@ -1,0 +1,36 @@
+@use 'fonts' as f;
+
+button {
+  font-family: f.$logo-pj-main-font;
+  text-transform: uppercase;
+  color: white;
+  font-weight: 500;
+  font-size: f.$logo-pj-regular-size;
+  border: none;
+}
+
+.ant-btn-primary {
+  background-color: #ff2f2f;
+  &:hover {
+    background-color: #ff2f2fc8;
+  }
+}
+
+.ant-btn-link {
+  &:hover {
+    color: #ff2f2f;
+  }
+}
+
+@media screen and (max-width: 726px) {
+  .ant-btn-primary {
+    padding: 0 0.8rem;
+  }
+  .ant-btn-link {
+    padding: 0 0.8rem;
+    font-size: f.$logo-pj-subtitle-size;
+    .button-label {
+      display: none;
+    }
+  }
+}
