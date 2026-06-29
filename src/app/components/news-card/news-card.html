@@ -1,23 +1,34 @@
 <nz-card>
   <a [routerLink]="['/news', id()]">
-    <div class="cardContainer" [class.primary]="variant() === 'primary'" [class.secondary]="variant() === 'secondary'"
-      [class.tertiary]="variant() === 'tertiary'">
-      @if (image()) {
-        <div class="imageWrapper">
-          @if (!imageLoaded()) {
-            <div class="imageSkeleton"></div>
-          }
-          <img loading="lazy" src="{{ image() }}" (load)="onImageLoad()" [class.isLoaded]="imageLoaded()" />
-        </div>
-      }
+    <div
+      class="cardContainer"
+      [class.primary]="variant() === 'primary'"
+      [class.secondary]="variant() === 'secondary'"
+      [class.tertiary]="variant() === 'tertiary'"
+    >
+      <div
+        class="cardContainer"
+        [class.primary]="variant() === 'primary'"
+        [class.secondary]="variant() === 'secondary'"
+        [class.tertiary]="variant() === 'tertiary'"
+      >
+        @if (variant() !== 'tertiary') {
+          <app-image
+            [src]="image()"
+            [alt]="title()"
+            [width]="variant() === 'primary' ? 420 : 300"
+            [height]="variant() === 'primary' ? 280 : 180"
+          />
+        }
+      </div>
       <div class="infoContainer">
         <h3>{{ title() }}</h3>
         <h4>{{ subtitle() }}</h4>
         <span class="lato-light">
           @if (updated() && created() && updated()?.getTime() !== created()?.getTime()) {
-          Atualizado {{ updated() | timeAgo }}
+            Atualizado {{ updated() | timeAgo }}
           } @else {
-          Criado {{ created() | timeAgo }}
+            Criado {{ created() | timeAgo }}
           }
         </span>
       </div>

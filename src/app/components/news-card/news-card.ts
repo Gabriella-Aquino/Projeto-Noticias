@@ -1,14 +1,14 @@
 import { Component, effect, input, signal } from '@angular/core';
 import { NzCardModule } from 'ng-zorro-antd/card';
-import { NzImageModule } from 'ng-zorro-antd/image';
 import { TimeAgoPipe } from '../../pipes/time-ago-pipe';
 import { RouterLink } from '@angular/router';
+import { Image } from '../image/image';
 
 export type INewsCardVariant = 'primary' | 'secondary' | 'tertiary';
 
 @Component({
   selector: 'app-news-card',
-  imports: [NzCardModule, NzImageModule, TimeAgoPipe, RouterLink],
+  imports: [NzCardModule, TimeAgoPipe, RouterLink, Image],
   templateUrl: './news-card.html',
   styleUrl: './news-card.scss',
 })
@@ -22,16 +22,4 @@ export class NewsCard {
   created = input.required<Date>();
 
   variant = input<INewsCardVariant>('secondary');
-  imageLoaded = signal(false);
-
-  constructor() {
-    effect(() => {
-      this.image();
-      this.imageLoaded.set(false);
-    });
-  }
-
-  onImageLoad() {
-    this.imageLoaded.set(true);
-  }
 }

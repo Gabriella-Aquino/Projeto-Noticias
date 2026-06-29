@@ -10,8 +10,9 @@
                 <img
                   [src]="item.avatar ? item.avatar : 'assets/icons/avatar-default.png'"
                   [alt]="item.name"
-                  loading="lazy"
-                >
+                  [width]="200"
+                  [height]="200"
+                />
               </div>
               <span>{{ item.name }}</span>
             </a>

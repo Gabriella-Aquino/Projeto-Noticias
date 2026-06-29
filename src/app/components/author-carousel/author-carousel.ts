@@ -3,10 +3,11 @@ import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { AUTHORS_MOCK } from '../../mocks/author';
 import { IAuthor } from '../../types/author';
 import { RouterLink } from '@angular/router';
+import { Image } from '../image/image';
 
 @Component({
   selector: 'app-author-carousel',
-  imports: [NzCarouselModule, RouterLink],
+  imports: [NzCarouselModule, RouterLink, Image],
   templateUrl: './author-carousel.html',
   styleUrl: './author-carousel.scss',
 })
