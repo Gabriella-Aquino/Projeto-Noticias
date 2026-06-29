@@ -7,7 +7,9 @@
   "newProjectRoot": "projects",
   "projects": {
     "projeto-noticias": {
-      "i18n": { "sourceLocale": "pt" },
+      "i18n": {
+        "sourceLocale": "pt"
+      },
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -24,6 +26,11 @@
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/styles"
+              ]
+            },
             "assets": [
               "src/favicon.ico",
               "src/assets",

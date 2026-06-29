@@ -1,13 +1,15 @@
+@use 'fonts' as f;
+@use 'tools' as t;
+
 .container {
-  display: flex;
-  flex-direction: column;
+  @include t.flex-column;
   align-items: center;
   .content {
     position: relative;
     width: 69.2rem;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 1.5rem;
     align-items: center;
     margin-top: 7.2rem;
 
@@ -38,12 +40,21 @@
         opacity: 1;
       }
     }
+    .header-category {
+      @include t.flex-column;
+      gap: 3.2rem;
+      h2 {
+        font-family: f.$logo-pj-main-font;
+        text-transform: uppercase;
+        font-size: 3.2rem;
+        font-weight: 300;
+      }
+    }
     .titleColumnist {
       font-family: 'Lato', sans-serif;
       font-weight: 700;
       font-size: 20px;
     }
-
     .newsContainer {
       width: 100%;
       display: flex;
@@ -59,8 +70,7 @@
   left: 0;
 }
 
-
-.separator{
+.separator {
   width: 100%;
   border-top: #a3a3a3 1px solid;
   margin: 40px 0;

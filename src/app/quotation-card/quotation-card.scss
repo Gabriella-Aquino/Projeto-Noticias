@@ -1,7 +1,9 @@
+@use 'fonts' as f;
+
 article {
     display: flex;
-    font-family: 'Lato';
-    font-size: 1.6rem;
+    font-family: f.$logo-pj-main-font;
+    font-size: f.$logo-pj-regular-size;
     justify-content: space-between;
     align-self: flex-end;
     font-weight: 550;

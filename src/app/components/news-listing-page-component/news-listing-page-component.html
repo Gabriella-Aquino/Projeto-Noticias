@@ -10,22 +10,17 @@
       <span class="titleColumnist">{{ title() }} </span>
       <app-logo-with-redirect [showTitle]="false" class="logoAbsolute" />
     } @else {
+    <div class="header-category">
       <app-logo-with-redirect />
+      <h2>{{ title() }}</h2>
+    </div>
     }
     <div class="separator"></div>
     <div class="newsContainer">
       @for (news of news(); track $index) {
-        <app-news-card
-          class="listingPrimaryCard"
-          [id]="news.id"
-          [title]="news.title"
-          [image]="news.image"
-          [subtitle]="news.subTitle"
-          [category]="news.category"
-          [updated]="news.updated"
-          [created]="news.created"
-          variant="primary"
-        ></app-news-card>
+      <app-news-card class="listingPrimaryCard" [id]="news.id" [title]="news.title" [image]="news.image"
+        [subtitle]="news.subTitle" [category]="news.category" [updated]="news.updated" [created]="news.created"
+        variant="primary"></app-news-card>
       }
     </div>
   </div>
