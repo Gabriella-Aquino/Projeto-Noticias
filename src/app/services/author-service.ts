@@ -21,7 +21,7 @@ export class AuthorService {
     return this.http.get<IAuthor[]>(this.url, { headers: this.headers });
   }
 
-  getCategoryById(id: number): Observable<IAuthor | null> {
+  getAuthorById(id: number): Observable<IAuthor | null> {
       return this.http
         .get<IAuthor[]>(`${this.url}?id=eq.${id}`, { headers: this.headers })
         .pipe(map((authors) => authors[0] ?? null));

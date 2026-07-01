@@ -16,22 +16,14 @@ export class NewsListingPageComponent {
   title = input.required<string>();
   news = input.required<INews[]>();
   columnistId = input<number | null>(null);
+  headerImage = input('assets/icons/logo-black.svg');
 
-  imageToRender = computed(() => {
-    if (this.page() !== 'columnist') {
-      return 'assets/icons/logo-black.svg';
-    }
-
-    const columnist = AUTHORS_MOCK.find((author) => author.id === this.columnistId());
-
-    return columnist?.avatar ?? 'assets/icons/avatar-default.png';
-  });
 
   columnistImageLoaded = signal(false);
 
   constructor() {
     effect(() => {
-      this.imageToRender();
+      this.headerImage();
       this.columnistImageLoaded.set(false);
     });
   }
