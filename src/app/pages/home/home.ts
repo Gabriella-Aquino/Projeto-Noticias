@@ -22,7 +22,7 @@ export class Home {
     initialValue: [] as INews[],
   });
 
-  mainNews = this.news()[0] ?? null;
+  mainNews = computed(() => this.news()[0] ?? null);
 
   secondNews = computed(() => this.news().slice(1, 4));
 
