@@ -1,7 +1,7 @@
 <section class="container">
   <h3>COLUNISTAS</h3>
   <nz-carousel [nzEffect]="'scrollx'" nzArrows>
-    @for (group of groupedItems; track $index) {
+    @for (group of groupedItems(); track $index) {
       <div nz-carousel-content>
         <div class="card-wrapper">
           @for (item of group; track item.id) {

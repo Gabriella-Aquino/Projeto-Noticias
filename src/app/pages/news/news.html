@@ -16,7 +16,7 @@
 
               @if (updatedAtDate()) {
                 <p>-</p>
-                <p>Atualizado há {{ timeAgo() }}</p>
+                <p>Atualizado há {{ updatedAtDate() | timeAgo }}</p>
               }
             </div>
           </div>

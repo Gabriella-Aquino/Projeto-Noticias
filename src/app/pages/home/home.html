@@ -17,20 +17,20 @@
 <nz-layout class="mainContainer">
   <nz-sider nzWidth="78%">
     <div class="siderContainer">
-      @if (mainNews) {
+      @if (mainNews()) {
         <app-news-card
-          [id]="mainNews.id"
-          [title]="mainNews.title"
-          [image]="mainNews.image"
-          [subtitle]="mainNews.subTitle"
-          [category]="mainNews.category"
+          [id]="mainNews()!.id"
+          [title]="mainNews()!.title"
+          [image]="mainNews()!.image"
+          [subtitle]="mainNews()!.subTitle"
+          [category]="mainNews()!.category"
           [variant]="'primary'"
-          [updated]="mainNews.updated"
-          [created]="mainNews.created"
+          [updated]="mainNews()!.updated"
+          [created]="mainNews()!.created"
         ></app-news-card>
       }
       <div class="secondaryNews">
-        @for (news of secondeNews; track $index) {
+        @for (news of secondNews(); track $index) {
           <app-news-card
             [id]="news.id"
             [title]="news.title"
@@ -48,7 +48,7 @@
   <nz-layout class="">
     <nz-content>
       <div class="tertiaryNoticie">
-        @for (news of tertiaryNews; track $index) {
+        @for (news of tertiaryNews(); track $index) {
           <app-news-card
             class="separator"
             [id]="news.id"
@@ -69,7 +69,7 @@
 <app-author-carousel></app-author-carousel>
 
 <div class="otherNews">
-  @for (news of otherNews; track $index) {
+  @for (news of otherNews(); track $index) {
     <app-news-card
       class="separator"
       [id]="news.id"

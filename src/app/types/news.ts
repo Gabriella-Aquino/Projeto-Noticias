@@ -13,3 +13,16 @@ export interface INews {
   category: ICategory['id'];
   main?: boolean;
 }
+
+export interface INewsResponse {
+  id: number;
+  created_at: string;
+  title: string;
+  subTitle: string;
+  content: string;
+  cover: string;
+  updated_ed: string | null;
+  main?: boolean;
+  author_id: IAuthor['id'];
+  category_id: ICategory['id'];
+}
