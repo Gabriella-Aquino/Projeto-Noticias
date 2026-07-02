@@ -3,8 +3,9 @@ import { NewsListingPageComponent } from '../../components/news-listing-page-com
 import { ActivatedRoute } from '@angular/router';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { switchMap, of } from 'rxjs';
-import { newsMock } from '../../mocks/news';
 import { CategoryService } from '../../services/category';
+import { NewsService } from '../../services/news-service';
+import { INews } from '../../types/news';
 
 @Component({
   selector: 'app-category',
@@ -15,6 +16,7 @@ import { CategoryService } from '../../services/category';
 export class Category {
   private route = inject(ActivatedRoute);
   private categoryService = inject(CategoryService);
+  private newsService = inject(NewsService);
 
   private routeParams = toSignal(this.route.paramMap, {
     initialValue: this.route.snapshot.paramMap,
@@ -34,9 +36,10 @@ export class Category {
 
   title = computed(() => this.category()?.name ?? 'Categoria');
 
-  news = computed(() => {
-    const id = this.categoryId();
-    if (!id) return [];
-    return newsMock.filter((item) => item.category === id);
-  });
+  news = toSignal(
+    toObservable(this.categoryId).pipe(
+      switchMap((id) => (id ? this.newsService.getNewsByCategory(id) : of([] as INews[])))
+    ),
+    { initialValue: [] as INews[] }
+  );
 }

@@ -1,7 +1,5 @@
 import { Component, computed, effect, input, signal } from '@angular/core';
 import { INews } from '../../types/news';
-import { NgClass } from '@angular/common';
-import { AUTHORS_MOCK } from '../../mocks/author';
 import { LogoWithRedirect } from '../../logo-with-redirect/logo-with-redirect';
 import { NewsCard } from '../news-card/news-card';
 

@@ -45,4 +45,20 @@ export class NewsService {
       .get<INewsResponse[]>(`${this.url}?id=eq.${id}`, { headers: this.headers })
       .pipe(map((news) => (news[0] ? this.toNews(news[0]) : null)));
   }
+
+  getNewsByAuthor(authorId: number): Observable<INews[]> {
+    return this.http
+      .get<INewsResponse[]>(`${this.url}?author_id=eq.${authorId}&order=created_at.desc`, {
+        headers: this.headers,
+      })
+      .pipe(map((news) => news.map((n) => this.toNews(n))));
+  }
+
+  getNewsByCategory(categoryId: number): Observable<INews[]> {
+    return this.http
+      .get<INewsResponse[]>(`${this.url}?category_id=eq.${categoryId}&order=created_at.desc`, {
+        headers: this.headers,
+      })
+      .pipe(map((news) => news.map((n) => this.toNews(n))));
+  }
 }

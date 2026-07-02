@@ -2,9 +2,10 @@ import { Component, computed, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { toObservable, toSignal } from '@angular/core/rxjs-interop';
 import { NewsListingPageComponent } from '../../components/news-listing-page-component/news-listing-page-component';
-import { newsMock } from '../../mocks/news';
 import { AuthorService } from '../../services/author-service';
+import { NewsService } from '../../services/news-service';
 import { of, switchMap } from 'rxjs';
+import { INews } from '../../types/news';
 
 @Component({
   selector: 'app-columnist-details',
@@ -19,6 +20,7 @@ export class ColumnistDetails {
   });
 
   private authorService = inject(AuthorService);
+  private newsService = inject(NewsService);
 
   columnistId = computed(() => {
     const id = this.routeParams().get('id');
@@ -40,9 +42,10 @@ export class ColumnistDetails {
     return this.author()?.avatar ?? 'assets/icons/avatar-default.png';
   });
 
-  news = computed(() => {
-    const id = this.columnistId();
-    if (!id) return [];
-    return newsMock.filter((item) => item.author === id);
-  });
+  news = toSignal(
+    toObservable(this.columnistId).pipe(
+      switchMap((id) => (id ? this.newsService.getNewsByAuthor(id) : of([] as INews[]))),
+    ),
+    { initialValue: [] as INews[] },
+  );
 }
