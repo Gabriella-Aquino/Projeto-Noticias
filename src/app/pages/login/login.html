@@ -1,0 +1,47 @@
+<div class="login-page">
+  <form nz-form [formGroup]="form" (ngSubmit)="submit()" class="login-card">
+    <h1>Entrar</h1>
+    <p class="subtitle">Acesse a área administrativa</p>
+
+    @if (errorMessage()) {
+      <nz-alert nzType="error" [nzMessage]="errorMessage()" nzShowIcon class="login-alert" />
+    }
+
+    <nz-form-item>
+      <nz-form-label nzFor="email">E-mail</nz-form-label>
+      <nz-form-control
+        [nzErrorTip]="
+          form.controls.email.hasError('required')
+            ? 'Informe o e-mail.'
+            : 'Informe um e-mail válido.'
+        "
+      >
+        <input
+          nz-input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder="seu@email.com"
+        />
+      </nz-form-control>
+    </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label nzFor="password">Senha</nz-form-label>
+      <nz-form-control nzErrorTip="Informe a senha.">
+        <input
+          nz-input
+          id="password"
+          type="password"
+          formControlName="password"
+          placeholder="Sua senha"
+        />
+      </nz-form-control>
+    </nz-form-item>
+
+    <button nz-button nzType="primary" nzBlock type="submit">
+      <span nz-icon nzType="lock"></span>
+      Entrar
+    </button>
+  </form>
+</div>
