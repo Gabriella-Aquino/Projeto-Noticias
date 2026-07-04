@@ -10,7 +10,7 @@ const SESSION_KEY = 'projeto-noticias:currentUserId';
 export class AuthService {
   private userService = inject(UserService);
 
-  private currentUserId = signal<number | null>(this.readSession());
+  private currentUserId = signal<string | null>(this.readSession());
 
   readonly currentUser = computed<IUser | null>(() => {
     const id = this.currentUserId();
@@ -27,7 +27,7 @@ export class AuthService {
     }
 
     this.currentUserId.set(user.id);
-    sessionStorage.setItem(SESSION_KEY, String(user.id));
+    sessionStorage.setItem(SESSION_KEY, user.id);
     return true;
   }
 
@@ -36,8 +36,7 @@ export class AuthService {
     sessionStorage.removeItem(SESSION_KEY);
   }
 
-  private readSession(): number | null {
-    const stored = sessionStorage.getItem(SESSION_KEY);
-    return stored ? Number(stored) : null;
+  private readSession(): string | null {
+    return sessionStorage.getItem(SESSION_KEY);
   }
 }
