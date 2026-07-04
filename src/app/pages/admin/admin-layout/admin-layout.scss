@@ -1,0 +1,41 @@
+@use 'tools' as t;
+@use 'colors' as c;
+
+.admin-page {
+  display: flex;
+  min-height: 70vh;
+}
+
+.admin-sidebar {
+  width: 16rem;
+  flex-shrink: 0;
+  background-color: c.$logo-pj-black;
+  color: white;
+  padding: 1.5rem 1rem;
+
+  h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .logged-as {
+    color: #ccc;
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+.admin-content {
+  flex: 1;
+  padding: 2rem;
+}
+
+@media (max-width: 768px) {
+  .admin-page {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+  }
+}

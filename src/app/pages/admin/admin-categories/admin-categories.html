@@ -1,0 +1,67 @@
+<div class="admin-section">
+  <div class="admin-section-header">
+    <h1>Categorias</h1>
+    <button nz-button nzType="primary" (click)="openCreateModal()">
+      <span nz-icon nzType="plus"></span>
+      Nova categoria
+    </button>
+  </div>
+
+  <nz-table #categoryTable [nzData]="categories()" [nzLoading]="loading()" nzNoResult="Nenhuma categoria cadastrada.">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th nzWidth="12rem">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (category of categoryTable.data; track category.id) {
+        <tr>
+          <td>{{ category.name }}</td>
+          <td>
+            <button nz-button nzType="text" (click)="openEditModal(category)" aria-label="Editar categoria">
+              <span nz-icon nzType="edit"></span>
+            </button>
+            <button
+              nz-button
+              nzType="text"
+              nzDanger
+              nz-popconfirm
+              nzPopconfirmTitle="Excluir esta categoria?"
+              (nzOnConfirm)="remove(category)"
+              aria-label="Excluir categoria"
+            >
+              <span nz-icon nzType="delete"></span>
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </nz-table>
+</div>
+
+<nz-modal
+  [(nzVisible)]="isModalVisible"
+  [nzTitle]="editingCategory() ? 'Editar categoria' : 'Nova categoria'"
+  (nzOnCancel)="closeModal()"
+  (nzOnOk)="submit()"
+  nzOkText="Salvar"
+  nzCancelText="Cancelar"
+>
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="form">
+      <nz-form-item>
+        <nz-form-label nzFor="name">Nome</nz-form-label>
+        <nz-form-control
+          [nzErrorTip]="
+            form.controls.name.hasError('required')
+              ? 'Informe o nome da categoria.'
+              : 'O nome deve ter pelo menos 2 caracteres.'
+          "
+        >
+          <input nz-input id="name" formControlName="name" placeholder="Ex.: Esportes" />
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>
