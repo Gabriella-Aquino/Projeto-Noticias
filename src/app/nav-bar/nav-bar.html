@@ -34,7 +34,20 @@
     <app-search-bar />
     <div id="nav-buttons">
       <app-button label="Email" variant="link" icon="mail" />
-      <app-button label="Entre" variant="link" icon="user" />
+
+      @if (isLoggedIn()) {
+        <div id="user-profile">
+          <span id="user-name">{{ currentUser()?.name }}</span>
+          <nz-tag [nzColor]="currentUser()?.role === 'admin' ? 'red' : 'blue'">
+            {{ roleLabel() }}
+          </nz-tag>
+        </div>
+        <app-button label="Admin" variant="link" icon="user" (clicked)="goToAdmin()" />
+        <app-button label="Sair" variant="link" icon="logout" (clicked)="logout()" />
+      } @else {
+        <app-button label="Entre" variant="link" icon="user" (clicked)="goToLogin()" />
+      }
+
       <app-button label="Assine" />
     </div>
   </div>

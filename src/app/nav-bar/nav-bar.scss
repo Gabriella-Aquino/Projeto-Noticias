@@ -24,6 +24,17 @@ nav {
   gap: 2rem;
 }
 
+#user-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: white;
+
+  #user-name {
+    font-size: f.$logo-pj-regular-size;
+  }
+}
+
 .mobile-only {
   display: none;
 }

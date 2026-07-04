@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
@@ -13,4 +13,5 @@ export class Button {
   label = input<string>();
   variant = input<'primary' | 'default' | 'dashed' | 'link' | 'text'>('primary');
   icon = input<string | null>(null);
+  clicked = output<void>();
 }
