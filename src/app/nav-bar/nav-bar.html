@@ -33,22 +33,17 @@
   <div id="nav-actions">
     <app-search-bar />
     <div id="nav-buttons">
-      <app-button label="Email" variant="link" icon="mail" />
-
       @if (isLoggedIn()) {
-        <div id="user-profile">
+        <a id="user-profile" routerLink="/admin" title="Ir para a área administrativa">
           <span id="user-name">{{ currentUser()?.name }}</span>
           <nz-tag [nzColor]="currentUser()?.role === 'admin' ? 'red' : 'blue'">
             {{ roleLabel() }}
           </nz-tag>
-        </div>
-        <app-button label="Admin" variant="link" icon="user" (clicked)="goToAdmin()" />
+        </a>
         <app-button label="Sair" variant="link" icon="logout" (clicked)="logout()" />
       } @else {
         <app-button label="Entre" variant="link" icon="user" (clicked)="goToLogin()" />
       }
-
-      <app-button label="Assine" />
     </div>
   </div>
 </nav>

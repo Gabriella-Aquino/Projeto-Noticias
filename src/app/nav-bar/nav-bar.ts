@@ -1,5 +1,5 @@
 import { Component, computed, inject, signal } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Button } from '../button/button';
 import { SearchBar } from '../search-bar/search-bar';
 import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
@@ -18,6 +18,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
   imports: [
     Button,
     SearchBar,
+    RouterLink,
     NzDropdownModule,
     NzMenuModule,
     NzIconModule,
@@ -62,10 +63,6 @@ export class NavBar {
 
   goToLogin() {
     this.router.navigateByUrl('/login');
-  }
-
-  goToAdmin() {
-    this.router.navigateByUrl('/admin');
   }
 
   logout() {
