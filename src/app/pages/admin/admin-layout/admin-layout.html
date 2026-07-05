@@ -7,16 +7,16 @@
 
     <ul nz-menu nzMode="inline" class="admin-menu">
       <li nz-menu-item routerLink="/admin/categories" routerLinkActive="ant-menu-item-selected">
-        <span nz-icon nzType="edit"></span>
+        <span nz-icon nzType="tags"></span>
         Categorias
       </li>
       <li nz-menu-item routerLink="/admin/authors" routerLinkActive="ant-menu-item-selected">
-        <span nz-icon nzType="edit"></span>
+        <span nz-icon nzType="user"></span>
         Autores
       </li>
       @if (isAdmin()) {
         <li nz-menu-item routerLink="/admin/users" routerLinkActive="ant-menu-item-selected">
-          <span nz-icon nzType="user"></span>
+          <span nz-icon nzType="team"></span>
           Usuários
         </li>
       }

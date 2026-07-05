@@ -11,6 +11,8 @@ import {
   DeleteOutline,
   LogoutOutline,
   LockOutline,
+  TagsOutline,
+  TeamOutline,
 } from '@ant-design/icons-angular/icons';
 
 import { routes } from './app.routes';
@@ -32,6 +34,8 @@ const icons = [
   DeleteOutline,
   LogoutOutline,
   LockOutline,
+  TagsOutline,
+  TeamOutline,
 ];
 
 export const appConfig: ApplicationConfig = {
