@@ -49,3 +49,8 @@ environment*
 #skills
 .claude**
 .claude/skills**
+
+#documentação de estilo
+PRODUCT.md
+DESIGN.md
+.impeccable**
