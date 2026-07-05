@@ -4,4 +4,6 @@
   <router-outlet />
 </main>
 
-<app-footer />
+@if (!isAdminRoute()) {
+  <app-footer />
+}
