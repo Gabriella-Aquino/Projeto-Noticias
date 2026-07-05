@@ -45,3 +45,7 @@ Thumbs.db
 
 # env
 environment*
+
+#skills
+.claude**
+.claude/skills**
