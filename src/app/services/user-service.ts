@@ -11,7 +11,7 @@ const SEED_USERS: IUser[] = [
   },
   {
     id: '3e2f6f8a-2b7a-4c3e-9c1a-9a6b8b1e1a02',
-    name: 'Editor',
+    name: 'Editore',
     email: 'editor@jornal.com',
     password: 'Editor@123',
     role: 'editor',
