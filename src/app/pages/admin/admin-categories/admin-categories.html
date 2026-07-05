@@ -7,18 +7,16 @@
     </button>
   </div>
 
-  <nz-table #categoryTable [nzData]="categories()" [nzLoading]="loading()" nzNoResult="Nenhuma categoria cadastrada.">
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th nzWidth="12rem">Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (category of categoryTable.data; track category.id) {
-        <tr>
-          <td>{{ category.name }}</td>
-          <td>
+  @if (loading()) {
+    <p class="admin-empty">Carregando categorias...</p>
+  } @else if (categories().length === 0) {
+    <p class="admin-empty">Nenhuma categoria cadastrada.</p>
+  } @else {
+    <ul class="crud-list">
+      @for (category of categories(); track category.id) {
+        <li class="crud-row">
+          <span class="crud-row__label">{{ category.name }}</span>
+          <div class="crud-row__actions">
             <button nz-button nzType="text" (click)="openEditModal(category)" aria-label="Editar categoria">
               <span nz-icon nzType="edit"></span>
             </button>
@@ -33,11 +31,11 @@
             >
               <span nz-icon nzType="delete"></span>
             </button>
-          </td>
-        </tr>
+          </div>
+        </li>
       }
-    </tbody>
-  </nz-table>
+    </ul>
+  }
 </div>
 
 <nz-modal

@@ -1,6 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
-import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzModalModule } from 'ng-zorro-antd/modal';
@@ -19,7 +18,6 @@ import { strongPasswordValidator } from '../../../validators/strong-password-val
   selector: 'app-admin-users',
   imports: [
     ReactiveFormsModule,
-    NzTableModule,
     NzButtonModule,
     NzIconModule,
     NzModalModule,

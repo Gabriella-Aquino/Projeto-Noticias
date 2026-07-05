@@ -1,6 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzModalModule } from 'ng-zorro-antd/modal';
@@ -15,7 +14,6 @@ import { IAuthor } from '../../../types/author';
   selector: 'app-admin-authors',
   imports: [
     ReactiveFormsModule,
-    NzTableModule,
     NzButtonModule,
     NzIconModule,
     NzModalModule,

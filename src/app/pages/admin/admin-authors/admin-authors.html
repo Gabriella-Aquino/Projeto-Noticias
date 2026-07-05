@@ -7,20 +7,23 @@
     </button>
   </div>
 
-  <nz-table #authorTable [nzData]="authors()" [nzLoading]="loading()" nzNoResult="Nenhum autor cadastrado.">
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>Avatar</th>
-        <th nzWidth="12rem">Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      @for (author of authorTable.data; track author.id) {
-        <tr>
-          <td>{{ author.name }}</td>
-          <td>{{ author.avatar || '—' }}</td>
-          <td>
+  @if (loading()) {
+    <p class="admin-empty">Carregando autores...</p>
+  } @else if (authors().length === 0) {
+    <p class="admin-empty">Nenhum autor cadastrado.</p>
+  } @else {
+    <ul class="crud-list">
+      @for (author of authors(); track author.id) {
+        <li class="crud-row">
+          <div class="crud-row__identity">
+            @if (author.avatar) {
+              <img class="crud-row__avatar" [src]="author.avatar" [alt]="author.name" />
+            } @else {
+              <span class="crud-row__avatar crud-row__avatar--placeholder">{{ author.name[0] }}</span>
+            }
+            <span class="crud-row__label">{{ author.name }}</span>
+          </div>
+          <div class="crud-row__actions">
             <button nz-button nzType="text" (click)="openEditModal(author)" aria-label="Editar autor">
               <span nz-icon nzType="edit"></span>
             </button>
@@ -35,11 +38,11 @@
             >
               <span nz-icon nzType="delete"></span>
             </button>
-          </td>
-        </tr>
+          </div>
+        </li>
       }
-    </tbody>
-  </nz-table>
+    </ul>
+  }
 </div>
 
 <nz-modal

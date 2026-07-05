@@ -1,6 +1,68 @@
+@use 'tools' as t;
+@use 'colors' as c;
+@use 'fonts' as f;
+
 .admin-section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
+
+  h1 {
+    margin: 0;
+    font-family: f.$logo-pj-main-font;
+    font-size: f.$logo-pj-title-size;
+    font-weight: 600;
+    color: #222;
+  }
+}
+
+.admin-empty {
+  color: #666;
+  font-size: 1.6rem;
+}
+
+.crud-list {
+  @include t.crud-list;
+}
+
+.crud-row {
+  @include t.crud-row;
+
+  &__identity {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    min-width: 0;
+  }
+
+  &__avatar {
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+
+    &--placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: c.$logo-pj-black;
+      color: white;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
+
+  &__label {
+    font-size: 1.6rem;
+    color: #222;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__actions {
+    @include t.crud-row-actions;
+  }
 }
