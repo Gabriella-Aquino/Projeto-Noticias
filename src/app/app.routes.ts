@@ -8,6 +8,7 @@ import { AdminLayout } from './pages/admin/admin-layout/admin-layout';
 import { AdminCategories } from './pages/admin/admin-categories/admin-categories';
 import { AdminAuthors } from './pages/admin/admin-authors/admin-authors';
 import { AdminUsers } from './pages/admin/admin-users/admin-users';
+import { AdminNews } from './pages/admin/admin-news/admin-news';
 import { authGuard } from './guards/auth-guard';
 import { adminGuard } from './guards/admin-guard';
 
@@ -23,7 +24,8 @@ export const routes: Routes = [
     component: AdminLayout,
     canActivate: [authGuard],
     children: [
-      { path: '', redirectTo: 'categories', pathMatch: 'full' },
+      { path: '', redirectTo: 'news', pathMatch: 'full' },
+      { path: 'news', component: AdminNews },
       { path: 'categories', component: AdminCategories },
       { path: 'authors', component: AdminAuthors },
       { path: 'users', component: AdminUsers, canActivate: [adminGuard] },

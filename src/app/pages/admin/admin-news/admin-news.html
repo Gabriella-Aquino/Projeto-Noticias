@@ -1,0 +1,166 @@
+<div class="admin-section">
+  <div class="admin-section-header">
+    <h1>Notícias</h1>
+    <button nz-button nzType="primary" (click)="openCreateModal()">
+      <span nz-icon nzType="plus"></span>
+      Nova notícia
+    </button>
+  </div>
+
+  @if (loading()) {
+    <p class="admin-empty">Carregando notícias...</p>
+  } @else if (news().length === 0) {
+    <p class="admin-empty">Nenhuma notícia cadastrada.</p>
+  } @else {
+    <ul class="crud-list">
+      @for (item of news(); track item.id) {
+        <li class="crud-row">
+          <div class="crud-row__identity">
+            @if (item.image) {
+              <img class="crud-row__thumb" [src]="item.image" [alt]="item.title" />
+            } @else {
+              <span class="crud-row__thumb crud-row__thumb--placeholder">{{ item.title[0] }}</span>
+            }
+            <div class="crud-row__info">
+              <span class="crud-row__label">
+                {{ item.title }}
+                @if (item.main) {
+                  <span class="crud-row__badge">Principal</span>
+                }
+              </span>
+              <span class="crud-row__meta">{{ categoryName(item.category) }} · {{ authorName(item.author) }}</span>
+            </div>
+          </div>
+          <div class="crud-row__actions">
+            <button nz-button nzType="text" (click)="openEditModal(item)" aria-label="Editar notícia">
+              <span nz-icon nzType="edit"></span>
+            </button>
+            <button
+              nz-button
+              nzType="text"
+              nzDanger
+              nz-popconfirm
+              nzPopconfirmTitle="Excluir esta notícia?"
+              (nzOnConfirm)="remove(item)"
+              aria-label="Excluir notícia"
+            >
+              <span nz-icon nzType="delete"></span>
+            </button>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</div>
+
+<nz-modal
+  [(nzVisible)]="isModalVisible"
+  [nzTitle]="editingNews() ? 'Editar notícia' : 'Nova notícia'"
+  (nzOnCancel)="closeModal()"
+  (nzOnOk)="submit()"
+  nzOkText="Salvar"
+  nzCancelText="Cancelar"
+  nzWidth="60rem"
+>
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="form">
+      <nz-form-item>
+        <nz-form-label nzFor="title">Título</nz-form-label>
+        <nz-form-control
+          [nzErrorTip]="
+            form.controls.title.hasError('required')
+              ? 'Informe o título da notícia.'
+              : 'O título deve ter pelo menos 2 caracteres.'
+          "
+        >
+          <input nz-input id="title" formControlName="title" placeholder="Título da notícia" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzFor="subTitle">Subtítulo</nz-form-label>
+        <nz-form-control
+          [nzErrorTip]="
+            form.controls.subTitle.hasError('required')
+              ? 'Informe o subtítulo.'
+              : 'O subtítulo deve ter pelo menos 2 caracteres.'
+          "
+        >
+          <input nz-input id="subTitle" formControlName="subTitle" placeholder="Subtítulo" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzFor="content">Conteúdo</nz-form-label>
+        <nz-form-control
+          [nzErrorTip]="
+            form.controls.content.hasError('required')
+              ? 'Informe o conteúdo da notícia.'
+              : 'O conteúdo deve ter pelo menos 10 caracteres.'
+          "
+        >
+          <textarea nz-input id="content" formControlName="content" rows="6" placeholder="Texto da notícia"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>Imagem</nz-form-label>
+        <nz-form-control>
+          <nz-radio-group [ngModel]="imageSource()" [ngModelOptions]="{ standalone: true }" (ngModelChange)="imageSource.set($event)">
+            <label nz-radio-button nzValue="url">URL</label>
+            <label nz-radio-button nzValue="file">Arquivo do dispositivo</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      @if (imageSource() === 'url') {
+        <nz-form-item>
+          <nz-form-control [nzErrorTip]="'Informe a URL da imagem de capa.'">
+            <input nz-input id="image" formControlName="image" placeholder="https://..." />
+          </nz-form-control>
+        </nz-form-item>
+      } @else {
+        <nz-form-item>
+          <nz-form-control>
+            <input type="file" accept="image/*" (change)="onImageFileSelected($event)" />
+            @if (uploadingImage()) {
+              <p class="admin-hint">Enviando imagem...</p>
+            }
+          </nz-form-control>
+        </nz-form-item>
+      }
+
+      @if (form.controls.image.value) {
+        <img class="admin-image-preview" [src]="form.controls.image.value" alt="Pré-visualização da imagem" />
+      }
+
+      <nz-form-item>
+        <nz-form-label nzFor="category">Categoria</nz-form-label>
+        <nz-form-control [nzErrorTip]="'Selecione uma categoria.'">
+          <nz-select id="category" formControlName="category" nzPlaceHolder="Selecione a categoria">
+            @for (category of categories(); track category.id) {
+              <nz-option [nzLabel]="category.name" [nzValue]="category.id" />
+            }
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzFor="author">Autor</nz-form-label>
+        <nz-form-control [nzErrorTip]="'Selecione um autor.'">
+          <nz-select id="author" formControlName="author" nzPlaceHolder="Selecione o autor">
+            @for (author of authors(); track author.id) {
+              <nz-option [nzLabel]="author.name" [nzValue]="author.id" />
+            }
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <label nz-checkbox formControlName="main">Destacar como notícia principal</label>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>

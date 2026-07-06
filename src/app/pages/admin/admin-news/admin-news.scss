@@ -52,10 +52,10 @@
     min-width: 0;
   }
 
-  &__avatar {
-    width: 3.6rem;
-    height: 3.6rem;
-    border-radius: 50%;
+  &__thumb {
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 4px;
     object-fit: cover;
     flex-shrink: 0;
 
@@ -70,9 +70,39 @@
     }
   }
 
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
   &__label {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
     font-size: 1.6rem;
     color: #222;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__badge {
+    flex-shrink: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #ff2f2f;
+    border: 1px solid #ff2f2f;
+    border-radius: 4px;
+    padding: 0.1rem 0.6rem;
+  }
+
+  &__meta {
+    font-size: 1.4rem;
+    color: #666;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;

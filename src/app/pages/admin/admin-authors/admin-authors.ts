@@ -1,24 +1,28 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AuthorService } from '../../../services/author-service';
+import { StorageService } from '../../../services/storage-service';
 import { IAuthor } from '../../../types/author';
 
 @Component({
   selector: 'app-admin-authors',
   imports: [
+    FormsModule,
     ReactiveFormsModule,
     NzButtonModule,
     NzIconModule,
     NzModalModule,
     NzFormModule,
     NzInputModule,
+    NzRadioModule,
     NzPopconfirmModule,
   ],
   templateUrl: './admin-authors.html',
@@ -26,6 +30,7 @@ import { IAuthor } from '../../../types/author';
 })
 export class AdminAuthors {
   private authorService = inject(AuthorService);
+  private storageService = inject(StorageService);
   private message = inject(NzMessageService);
   private fb = inject(FormBuilder);
 
@@ -33,6 +38,8 @@ export class AdminAuthors {
   loading = signal(false);
   isModalVisible = signal(false);
   editingAuthor = signal<IAuthor | null>(null);
+  avatarSource = signal<'url' | 'file'>('url');
+  uploadingAvatar = signal(false);
 
   form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
@@ -59,12 +66,16 @@ export class AdminAuthors {
 
   openCreateModal(): void {
     this.editingAuthor.set(null);
+    this.avatarSource.set('url');
+    this.uploadingAvatar.set(false);
     this.form.reset({ name: '', avatar: '' });
     this.isModalVisible.set(true);
   }
 
   openEditModal(author: IAuthor): void {
     this.editingAuthor.set(author);
+    this.avatarSource.set('url');
+    this.uploadingAvatar.set(false);
     this.form.reset({ name: author.name, avatar: author.avatar ?? '' });
     this.isModalVisible.set(true);
   }
@@ -73,7 +84,32 @@ export class AdminAuthors {
     this.isModalVisible.set(false);
   }
 
+  onAvatarFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    const file = input.files?.[0];
+    if (!file) {
+      return;
+    }
+
+    this.uploadingAvatar.set(true);
+    this.storageService.uploadImage(file, 'Author').subscribe({
+      next: (url) => {
+        this.form.controls.avatar.setValue(url);
+        this.uploadingAvatar.set(false);
+      },
+      error: () => {
+        this.message.error('Não foi possível enviar o avatar.');
+        this.uploadingAvatar.set(false);
+      },
+    });
+  }
+
   submit(): void {
+    if (this.uploadingAvatar()) {
+      this.message.warning('Aguarde o envio da imagem terminar.');
+      return;
+    }
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;

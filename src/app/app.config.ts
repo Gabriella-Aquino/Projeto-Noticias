@@ -13,6 +13,7 @@ import {
   LockOutline,
   TagsOutline,
   TeamOutline,
+  FileTextOutline,
 } from '@ant-design/icons-angular/icons';
 
 import { routes } from './app.routes';
@@ -36,6 +37,7 @@ const icons = [
   LockOutline,
   TagsOutline,
   TeamOutline,
+  FileTextOutline,
 ];
 
 export const appConfig: ApplicationConfig = {

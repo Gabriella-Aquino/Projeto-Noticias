@@ -82,6 +82,12 @@ html {
 .ant-modal-body {
   color: rgba(0, 0, 0, 0.85);
   padding: 2.4rem;
+  max-height: calc(100vh - 22rem);
+  overflow-y: auto;
+}
+
+.cdk-global-scrollblock {
+  overflow-y: hidden !important;
 }
 
 .ant-modal .ant-form-item-label > label {

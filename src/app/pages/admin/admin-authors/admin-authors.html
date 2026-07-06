@@ -69,11 +69,35 @@
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-label nzFor="avatar">Avatar (URL)</nz-form-label>
+        <nz-form-label>Avatar</nz-form-label>
         <nz-form-control>
-          <input nz-input id="avatar" formControlName="avatar" placeholder="https://..." />
+          <nz-radio-group [ngModel]="avatarSource()" [ngModelOptions]="{ standalone: true }" (ngModelChange)="avatarSource.set($event)">
+            <label nz-radio-button nzValue="url">URL</label>
+            <label nz-radio-button nzValue="file">Arquivo do dispositivo</label>
+          </nz-radio-group>
         </nz-form-control>
       </nz-form-item>
+
+      @if (avatarSource() === 'url') {
+        <nz-form-item>
+          <nz-form-control>
+            <input nz-input id="avatar" formControlName="avatar" placeholder="https://..." />
+          </nz-form-control>
+        </nz-form-item>
+      } @else {
+        <nz-form-item>
+          <nz-form-control>
+            <input type="file" accept="image/*" (change)="onAvatarFileSelected($event)" />
+            @if (uploadingAvatar()) {
+              <p class="admin-hint">Enviando imagem...</p>
+            }
+          </nz-form-control>
+        </nz-form-item>
+      }
+
+      @if (form.controls.avatar.value) {
+        <img class="admin-image-preview" [src]="form.controls.avatar.value" alt="Pré-visualização do avatar" />
+      }
     </form>
   </ng-container>
 </nz-modal>
