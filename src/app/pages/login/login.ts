@@ -41,15 +41,16 @@ export class Login {
     }
 
     const { email, password } = this.form.getRawValue();
-    const success = this.authService.login(email, password);
 
-    if (!success) {
-      this.errorMessage.set('E-mail ou senha inválidos.');
-      return;
-    }
-
-    this.errorMessage.set(null);
-    const redirectTo = this.route.snapshot.queryParamMap.get('redirectTo') ?? '/admin';
-    this.router.navigateByUrl(redirectTo);
+    this.authService.login(email, password).subscribe({
+      next: () => {
+        this.errorMessage.set(null);
+        const redirectTo = this.route.snapshot.queryParamMap.get('redirectTo') ?? '/admin';
+        this.router.navigateByUrl(redirectTo);
+      },
+      error: () => {
+        this.errorMessage.set('E-mail ou senha inválidos.');
+      },
+    });
   }
 }
