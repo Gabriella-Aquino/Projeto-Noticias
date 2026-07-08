@@ -36,7 +36,7 @@ export class AdminUsers {
   private message = inject(NzMessageService);
   private fb = inject(FormBuilder);
 
-  users = this.userService.users;
+  users = signal<IUser[]>([]);
   currentUser = this.authService.currentUser;
   isModalVisible = signal(false);
 
@@ -46,6 +46,10 @@ export class AdminUsers {
     password: ['', [Validators.required, strongPasswordValidator]],
     role: ['editor' as 'admin' | 'editor', [Validators.required]],
   });
+
+  constructor() {
+    this.refresh();
+  }
 
   passwordErrorMessage(): string {
     const errors: ValidationErrors | null = this.form.controls.password.errors;
@@ -73,7 +77,6 @@ export class AdminUsers {
     const control = this.form.controls.email;
     if (control.hasError('required')) return 'Informe o e-mail.';
     if (control.hasError('email')) return 'Informe um e-mail válido.';
-    if (control.hasError('emailTaken')) return 'Já existe um usuário com este e-mail.';
     return '';
   }
 
@@ -87,20 +90,22 @@ export class AdminUsers {
   }
 
   submit(): void {
-    const email = this.form.controls.email.value;
-    if (email && this.userService.emailExists(email)) {
-      this.form.controls.email.setErrors({ emailTaken: true });
-    }
-
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
-    const { name, password, role } = this.form.getRawValue();
-    this.userService.create({ name, email: email!, password, role });
-    this.message.success('Usuário cadastrado com sucesso.');
-    this.isModalVisible.set(false);
+    const { name, email, password, role } = this.form.getRawValue();
+    this.userService.create({ name, email, password, role }).subscribe({
+      next: () => {
+        this.message.success('Usuário cadastrado com sucesso.');
+        this.isModalVisible.set(false);
+        this.refresh();
+      },
+      error: () => {
+        this.message.error('Não foi possível cadastrar o usuário. Verifique o e-mail informado.');
+      },
+    });
   }
 
   remove(user: IUser): void {
@@ -109,7 +114,13 @@ export class AdminUsers {
       return;
     }
 
-    this.userService.delete(user.id);
-    this.message.success('Usuário excluído com sucesso.');
+    this.userService.delete(user.id).subscribe(() => {
+      this.message.success('Usuário excluído com sucesso.');
+      this.refresh();
+    });
+  }
+
+  private refresh(): void {
+    this.userService.getAll().subscribe((users) => this.users.set(users));
   }
 }

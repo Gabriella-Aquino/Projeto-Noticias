@@ -1,56 +1,78 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map, Observable, switchMap } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 import { IUser, IUserCreate } from '../types/user';
+import { getCookie } from '../utils/cookie';
+import { ACCESS_TOKEN_KEY } from '../utils/storage-keys';
+import { toAuthUrl } from '../utils/supabase-auth-url';
 
-const SEED_USERS: IUser[] = [
-  {
-    id: '3e2f6f8a-2b7a-4c3e-9c1a-9a6b8b1e1a01',
-    name: 'Administrador',
-    email: 'admin@jornal.com',
-    password: 'Admin@123',
-    role: 'admin',
-  },
-  {
-    id: '3e2f6f8a-2b7a-4c3e-9c1a-9a6b8b1e1a02',
-    name: 'Editore',
-    email: 'editor@jornal.com',
-    password: 'Editor@123',
-    role: 'editor',
-  },
-];
+interface SignUpResponse {
+  id?: string;
+  user?: { id: string };
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private usersSignal = signal<IUser[]>(SEED_USERS);
+  private http = inject(HttpClient);
+  private url = `${environment.supabaseUrl}profiles`;
+  private authUrl = toAuthUrl(environment.supabaseUrl);
 
-  readonly users = this.usersSignal.asReadonly();
-
-  getAll(): IUser[] {
-    return this.usersSignal();
+  private get headers(): HttpHeaders {
+    return new HttpHeaders({
+      apikey: environment.supabaseKey,
+      Authorization: `Bearer ${getCookie(ACCESS_TOKEN_KEY) ?? environment.supabaseKey}`,
+      'Content-Type': 'application/json',
+    });
   }
 
-  findByEmail(email: string): IUser | undefined {
-    return this.usersSignal().find((user) => user.email.toLowerCase() === email.toLowerCase());
+  private get writeHeaders(): HttpHeaders {
+    return this.headers.set('Prefer', 'return=representation');
   }
 
-  findById(id: string): IUser | undefined {
-    return this.usersSignal().find((user) => user.id === id);
+  getAll(): Observable<IUser[]> {
+    return this.http.get<IUser[]>(`${this.url}?select=id,name,role`, { headers: this.headers });
   }
 
-  emailExists(email: string, excludeId?: string): boolean {
-    return this.usersSignal().some(
-      (user) => user.email.toLowerCase() === email.toLowerCase() && user.id !== excludeId
-    );
+  findById(id: string): Observable<IUser | null> {
+    return this.http
+      .get<IUser[]>(`${this.url}?id=eq.${id}&select=id,name,role`, { headers: this.headers })
+      .pipe(map((users) => users[0] ?? null));
   }
 
-  create(user: IUserCreate): IUser {
-    const newUser: IUser = { ...user, id: crypto.randomUUID() };
-    this.usersSignal.update((users) => [...users, newUser]);
-    return newUser;
+  create(user: IUserCreate): Observable<IUser> {
+    const signUpHeaders = new HttpHeaders({
+      apikey: environment.supabaseKey,
+      Authorization: `Bearer ${environment.supabaseKey}`,
+      'Content-Type': 'application/json',
+    });
+
+    return this.http
+      .post<SignUpResponse>(
+        `${this.authUrl}signup`,
+        { email: user.email, password: user.password },
+        { headers: signUpHeaders },
+      )
+      .pipe(
+        switchMap((res) => {
+          const id = res.user?.id ?? res.id;
+          if (!id) {
+            throw new Error('Supabase did not return the new user id.');
+          }
+
+          return this.http.patch<IUser[]>(
+            `${this.url}?id=eq.${id}`,
+            { name: user.name, role: user.role },
+            { headers: this.writeHeaders },
+          );
+        }),
+        map((profiles) => profiles[0]),
+      );
   }
 
-  delete(id: string): void {
-    this.usersSignal.update((users) => users.filter((user) => user.id !== id));
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.url}?id=eq.${id}`, { headers: this.headers });
   }
 }
