@@ -4,11 +4,13 @@ import { HttpTestingController, provideHttpClientTesting } from '@angular/common
 
 import { UserService } from './user-service';
 import { environment } from '../../environments/environment.development';
+import { toAuthUrl } from '../utils/supabase-auth-url';
 
 describe('UserService', () => {
   let service: UserService;
   let httpMock: HttpTestingController;
   const url = `${environment.supabaseUrl}profiles`;
+  const signUpUrl = `${toAuthUrl(environment.supabaseUrl)}signup`;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -60,6 +62,24 @@ describe('UserService', () => {
 
     const req = httpMock.expectOne(`${url}?id=eq.missing&select=id,name,role`);
     req.flush([]);
+  });
+
+  it('should sign up a new user and patch its generated profile', () => {
+    service
+      .create({ name: 'Novo Usuário', email: 'novo@jornal.com', password: 'Senha@123', role: 'editor' })
+      .subscribe((user) => {
+        expect(user).toEqual({ id: '3', name: 'Novo Usuário', role: 'editor' });
+      });
+
+    const signUpReq = httpMock.expectOne(signUpUrl);
+    expect(signUpReq.request.method).toBe('POST');
+    expect(signUpReq.request.body).toEqual({ email: 'novo@jornal.com', password: 'Senha@123' });
+    signUpReq.flush({ id: '3' });
+
+    const patchReq = httpMock.expectOne(`${url}?id=eq.3`);
+    expect(patchReq.request.method).toBe('PATCH');
+    expect(patchReq.request.body).toEqual({ name: 'Novo Usuário', role: 'editor' });
+    patchReq.flush([{ id: '3', name: 'Novo Usuário', role: 'editor' }]);
   });
 
   it('should delete a profile', () => {

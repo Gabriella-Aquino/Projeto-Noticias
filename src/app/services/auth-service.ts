@@ -6,6 +6,7 @@ import { environment } from '../../environments/environment.development';
 import { tap } from 'rxjs';
 import { deleteCookie, getCookie, setCookie } from '../utils/cookie';
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY, USER_ID_KEY } from '../utils/storage-keys';
+import { toAuthUrl } from '../utils/supabase-auth-url';
 
 const REFRESH_TOKEN_MAX_AGE = 60 * 60 * 24 * 30;
 
@@ -27,7 +28,7 @@ export class AuthService {
   #http = inject(HttpClient);
   private userService = inject(UserService);
 
-  private authUrl = environment.supabaseUrl.replace('/rest/v1/', '/auth/v1/');
+  private authUrl = toAuthUrl(environment.supabaseUrl);
 
   #accessToken = signal(getCookie(ACCESS_TOKEN_KEY));
   readonly token = this.#accessToken.asReadonly();

@@ -5,12 +5,14 @@ import { provideNzIconsTesting } from 'ng-zorro-antd/icon/testing';
 
 import { AdminUsers } from './admin-users';
 import { environment } from '../../../../environments/environment.development';
+import { toAuthUrl } from '../../../utils/supabase-auth-url';
 
 describe('AdminUsers', () => {
   let component: AdminUsers;
   let fixture: ComponentFixture<AdminUsers>;
   let httpMock: HttpTestingController;
   const profilesUrl = `${environment.supabaseUrl}profiles`;
+  const signUpUrl = `${toAuthUrl(environment.supabaseUrl)}signup`;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -43,12 +45,47 @@ describe('AdminUsers', () => {
 
   it('should reject an invalid name', () => {
     component.openCreateModal();
-    component.form.setValue({ name: 'A', role: 'editor' });
+    component.form.setValue({
+      name: 'A',
+      email: 'novo@jornal.com',
+      password: 'Senha@123',
+      role: 'editor',
+    });
 
     component.submit();
 
     expect(component.form.controls.name.invalid).toBe(true);
     expect(component.users().length).toBe(2);
+  });
+
+  it('should sign up and patch the profile on create', () => {
+    component.openCreateModal();
+    component.form.setValue({
+      name: 'Novo Usuário',
+      email: 'novo@jornal.com',
+      password: 'Senha@123',
+      role: 'editor',
+    });
+
+    component.submit();
+
+    const signUpReq = httpMock.expectOne(signUpUrl);
+    expect(signUpReq.request.method).toBe('POST');
+    signUpReq.flush({ id: '3' });
+
+    const patchReq = httpMock.expectOne(`${profilesUrl}?id=eq.3`);
+    expect(patchReq.request.method).toBe('PATCH');
+    expect(patchReq.request.body).toEqual({ name: 'Novo Usuário', role: 'editor' });
+    patchReq.flush([{ id: '3', name: 'Novo Usuário', role: 'editor' }]);
+
+    httpMock.expectOne(`${profilesUrl}?select=id,name,role`).flush([
+      { id: '1', name: 'Administrador', role: 'admin' },
+      { id: '2', name: 'Editore', role: 'editor' },
+      { id: '3', name: 'Novo Usuário', role: 'editor' },
+    ]);
+
+    expect(component.isModalVisible()).toBe(false);
+    expect(component.users().length).toBe(3);
   });
 
   it('should delete a user that is not the current session', () => {

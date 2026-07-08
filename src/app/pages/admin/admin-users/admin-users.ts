@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzModalModule } from 'ng-zorro-antd/modal';
@@ -12,6 +12,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { UserService } from '../../../services/user-service';
 import { AuthService } from '../../../services/auth-service';
 import { IUser } from '../../../types/user';
+import { strongPasswordValidator } from '../../../validators/strong-password-validator';
 
 @Component({
   selector: 'app-admin-users',
@@ -41,6 +42,8 @@ export class AdminUsers {
 
   form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, strongPasswordValidator]],
     role: ['editor' as 'admin' | 'editor', [Validators.required]],
   });
 
@@ -48,8 +51,37 @@ export class AdminUsers {
     this.refresh();
   }
 
+  passwordErrorMessage(): string {
+    const errors: ValidationErrors | null = this.form.controls.password.errors;
+
+    if (errors?.['required']) {
+      return 'Informe uma senha.';
+    }
+
+    const strongPasswordErrors = errors?.['strongPassword'];
+    if (!strongPasswordErrors) {
+      return '';
+    }
+
+    const missing: string[] = [];
+    if (strongPasswordErrors.minLength) missing.push('8 caracteres');
+    if (strongPasswordErrors.uppercase) missing.push('1 letra maiúscula');
+    if (strongPasswordErrors.lowercase) missing.push('1 letra minúscula');
+    if (strongPasswordErrors.number) missing.push('1 número');
+    if (strongPasswordErrors.specialChar) missing.push('1 caractere especial');
+
+    return `A senha precisa ter ao menos: ${missing.join(', ')}.`;
+  }
+
+  emailErrorMessage(): string {
+    const control = this.form.controls.email;
+    if (control.hasError('required')) return 'Informe o e-mail.';
+    if (control.hasError('email')) return 'Informe um e-mail válido.';
+    return '';
+  }
+
   openCreateModal(): void {
-    this.form.reset({ name: '', role: 'editor' });
+    this.form.reset({ name: '', email: '', password: '', role: 'editor' });
     this.isModalVisible.set(true);
   }
 
@@ -63,16 +95,16 @@ export class AdminUsers {
       return;
     }
 
-    const { name, role } = this.form.getRawValue();
-    this.userService.create({ name, role }).subscribe((user) => {
-      if (!user) {
-        this.message.warning('Cadastro de usuários ainda não está disponível.');
-        return;
-      }
-
-      this.message.success('Usuário cadastrado com sucesso.');
-      this.isModalVisible.set(false);
-      this.refresh();
+    const { name, email, password, role } = this.form.getRawValue();
+    this.userService.create({ name, email, password, role }).subscribe({
+      next: () => {
+        this.message.success('Usuário cadastrado com sucesso.');
+        this.isModalVisible.set(false);
+        this.refresh();
+      },
+      error: () => {
+        this.message.error('Não foi possível cadastrar o usuário. Verifique o e-mail informado.');
+      },
     });
   }
 

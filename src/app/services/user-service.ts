@@ -1,10 +1,16 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, Observable, of } from 'rxjs';
+import { map, Observable, switchMap } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { IUser, IUserCreate } from '../types/user';
 import { getCookie } from '../utils/cookie';
 import { ACCESS_TOKEN_KEY } from '../utils/storage-keys';
+import { toAuthUrl } from '../utils/supabase-auth-url';
+
+interface SignUpResponse {
+  id?: string;
+  user?: { id: string };
+}
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +18,7 @@ import { ACCESS_TOKEN_KEY } from '../utils/storage-keys';
 export class UserService {
   private http = inject(HttpClient);
   private url = `${environment.supabaseUrl}profiles`;
+  private authUrl = toAuthUrl(environment.supabaseUrl);
 
   private get headers(): HttpHeaders {
     return new HttpHeaders({
@@ -19,6 +26,10 @@ export class UserService {
       Authorization: `Bearer ${getCookie(ACCESS_TOKEN_KEY) ?? environment.supabaseKey}`,
       'Content-Type': 'application/json',
     });
+  }
+
+  private get writeHeaders(): HttpHeaders {
+    return this.headers.set('Prefer', 'return=representation');
   }
 
   getAll(): Observable<IUser[]> {
@@ -31,9 +42,34 @@ export class UserService {
       .pipe(map((users) => users[0] ?? null));
   }
 
-  create(_user: IUserCreate): Observable<IUser | null> {
+  create(user: IUserCreate): Observable<IUser> {
+    const signUpHeaders = new HttpHeaders({
+      apikey: environment.supabaseKey,
+      Authorization: `Bearer ${environment.supabaseKey}`,
+      'Content-Type': 'application/json',
+    });
 
-    return of(null);
+    return this.http
+      .post<SignUpResponse>(
+        `${this.authUrl}signup`,
+        { email: user.email, password: user.password },
+        { headers: signUpHeaders },
+      )
+      .pipe(
+        switchMap((res) => {
+          const id = res.user?.id ?? res.id;
+          if (!id) {
+            throw new Error('Supabase did not return the new user id.');
+          }
+
+          return this.http.patch<IUser[]>(
+            `${this.url}?id=eq.${id}`,
+            { name: user.name, role: user.role },
+            { headers: this.writeHeaders },
+          );
+        }),
+        map((profiles) => profiles[0]),
+      );
   }
 
   delete(id: string): Observable<void> {

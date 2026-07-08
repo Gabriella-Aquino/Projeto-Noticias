@@ -6,4 +6,9 @@ export interface IUser {
   role: UserRole;
 }
 
-export type IUserCreate = Omit<IUser, 'id'>;
+export interface IUserCreate {
+  name: string;
+  email: string;
+  password: string;
+  role: UserRole;
+}
