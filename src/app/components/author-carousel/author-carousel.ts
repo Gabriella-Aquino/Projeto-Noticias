@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
-import { AUTHORS_MOCK } from '../../mocks/author';
 import { IAuthor } from '../../types/author';
 import { RouterLink } from '@angular/router';
 import { Image } from '../image/image';
+import { AuthorService } from '../../services/author-service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-author-carousel',
@@ -12,13 +13,17 @@ import { Image } from '../image/image';
   styleUrl: './author-carousel.scss',
 })
 export class AuthorCarousel {
-  originalList = AUTHORS_MOCK;
+  // originalList = AUTHORS_MOCK;
 
-  groupedItems: IAuthor[][] = [];
+  // groupedItems: IAuthor[][] = [];
 
-  constructor() {
-    this.groupedItems = this.chunkArray(this.originalList, 7);
-  }
+  private authorService = inject(AuthorService);
+
+  private authors = toSignal(this.authorService.getAll(), {
+    initialValue: [] as IAuthor[],
+  });
+
+  groupedItems = computed(() => this.chunkArray(this.authors(), 7));
 
   chunkArray(array: IAuthor[], size: number) {
     const result = [];

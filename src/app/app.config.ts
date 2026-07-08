@@ -8,6 +8,7 @@ import { pt_BR, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import pt from '@angular/common/locales/pt';
 import { provideNzIcons } from 'ng-zorro-antd/icon';
+import { provideHttpClient } from '@angular/common/http';
 
 registerLocaleData(pt);
 
@@ -19,5 +20,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideNzI18n(pt_BR),
     provideNzIcons(icons),
+    provideHttpClient(),
   ],
 };

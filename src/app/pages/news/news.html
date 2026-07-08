@@ -1,4 +1,4 @@
-<div class="news-container">
+  <div class="news-container">
   <app-logo-with-redirect />
   @if (newsData()) {
   <div class="news">
@@ -14,22 +14,22 @@
           <div class="realease-info">
             <p>Publicado em: {{ newsData()?.created | date: 'dd/MM/yyyy' }}</p>
 
-            @if (updatedAtDate()) {
-            <p>-</p>
-            <p>Atualizado há {{ timeAgo() }}</p>
-            }
+              @if (updatedAtDate()) {
+                <p>-</p>
+                <p>Atualizado há {{ updatedAtDate() | timeAgo }}</p>
+              }
+            </div>
           </div>
-        </div>
-      </header>
-    </section>
-    <div class="news-image-wrapper">
-      @if (!imageLoaded()) {
-      <div class="imageSkeleton"></div>
-      }
-      <img loading="lazy" src="{{ newsData()?.image }}" (load)="onImageLoad()" [class.isLoaded]="imageLoaded()" />
+        </header>
+      </section>
+      <div class="news-image-wrapper">
+        @if (!imageLoaded()) {
+          <div class="imageSkeleton"></div>
+        }
+        <img loading="lazy" src="{{ newsData()?.image }}" (load)="onImageLoad()" [class.isLoaded]="imageLoaded()" />
+      </div>
+      <section class="news-content" [innerHTML]="newsData()?.content"></section>
     </div>
-    <section class="news-content" [innerHTML]="newsData()?.content"></section>
-  </div>
   } @else {
   <p>Notícia não encontrada.</p>
   }

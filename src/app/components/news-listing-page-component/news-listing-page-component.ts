@@ -1,7 +1,5 @@
 import { Component, computed, effect, input, signal } from '@angular/core';
 import { INews } from '../../types/news';
-import { NgClass } from '@angular/common';
-import { AUTHORS_MOCK } from '../../mocks/author';
 import { LogoWithRedirect } from '../../logo-with-redirect/logo-with-redirect';
 import { NewsCard } from '../news-card/news-card';
 
@@ -16,22 +14,14 @@ export class NewsListingPageComponent {
   title = input.required<string>();
   news = input.required<INews[]>();
   columnistId = input<number | null>(null);
+  headerImage = input('assets/icons/logo-black.svg');
 
-  imageToRender = computed(() => {
-    if (this.page() !== 'columnist') {
-      return 'assets/icons/logo-black.svg';
-    }
-
-    const columnist = AUTHORS_MOCK.find((author) => author.id === this.columnistId());
-
-    return columnist?.avatar ?? 'assets/icons/avatar-default.png';
-  });
 
   columnistImageLoaded = signal(false);
 
   constructor() {
     effect(() => {
-      this.imageToRender();
+      this.headerImage();
       this.columnistImageLoaded.set(false);
     });
   }

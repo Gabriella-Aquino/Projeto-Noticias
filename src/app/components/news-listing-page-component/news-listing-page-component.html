@@ -5,7 +5,7 @@
         @if (!columnistImageLoaded()) {
           <div class="imageSkeleton"></div>
         }
-        <img loading="lazy" [src]="imageToRender()" [alt]="page() === 'columnist' && 'Avatar do colunista'" (load)="onColumnistImageLoad()" [class.isLoaded]="columnistImageLoaded()" />
+        <img loading="lazy" [src]="headerImage()" [alt]="page() === 'columnist' && 'Avatar do colunista'" (load)="onColumnistImageLoad()" [class.isLoaded]="columnistImageLoaded()" />
       </div>
       <span class="titleColumnist">{{ title() }} </span>
       <app-logo-with-redirect [showTitle]="false" class="logoAbsolute" />
