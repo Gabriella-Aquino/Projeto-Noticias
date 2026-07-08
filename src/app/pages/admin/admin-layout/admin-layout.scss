@@ -1,0 +1,99 @@
+@use 'tools' as t;
+@use 'colors' as c;
+@use 'fonts' as f;
+
+:host {
+  display: block;
+}
+
+.admin-page {
+  display: flex;
+  align-items: stretch;
+  // Percentage/flex-grow heights don't reliably cascade down through `main`
+  // (its flex container only sets min-height, not a definite height), so the
+  // sidebar's fill-to-bottom relies on this explicit viewport calc instead.
+  min-height: calc(100vh - 6rem);
+  font-family: f.$logo-pj-main-font;
+}
+
+.admin-sidebar {
+  width: 20rem;
+  flex-shrink: 0;
+  background-color: c.$logo-pj-black;
+  color: white;
+  padding: 2.4rem 1.6rem;
+
+  h2 {
+    margin: 0 0 0.4rem;
+    font-size: f.$logo-pj-subtitle-size;
+    font-weight: 600;
+    color: white;
+  }
+
+  .logged-as {
+    color: #aaa;
+    font-size: f.$logo-pj-meta-size;
+    margin-bottom: 2rem;
+  }
+}
+
+.admin-content {
+  flex: 1;
+  padding: 3.2rem 4rem;
+}
+
+// nz-menu ships a light theme by default (white background, near-black text).
+// Our sidebar is dark, so the menu needs its own dark treatment here — these
+// selectors target ng-zorro's internal classes, which is why ::ng-deep is
+// needed instead of a plain scoped rule.
+:host ::ng-deep {
+  .admin-menu.ant-menu {
+    background: transparent;
+    border-inline-end: none;
+    color: #ccc;
+
+    .ant-menu-item {
+      color: #ccc;
+
+      .anticon {
+        color: #ccc;
+      }
+
+      &:hover {
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.08);
+
+        .anticon {
+          color: #fff;
+        }
+      }
+    }
+
+    .ant-menu-item-selected {
+      background-color: rgba(255, 47, 47, 0.16);
+      color: #fff;
+
+      .anticon {
+        color: c.$logo-pj-red-hover;
+      }
+
+      &::after {
+        border-inline-end-color: c.$logo-pj-red-hover;
+      }
+
+      &:hover {
+        background-color: rgba(255, 47, 47, 0.24);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-page {
+    flex-direction: column;
+  }
+
+  .admin-sidebar {
+    width: 100%;
+  }
+}

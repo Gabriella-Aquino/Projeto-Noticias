@@ -3,6 +3,18 @@ import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
 import { map, Observable } from 'rxjs';
 import { INews, INewsResponse } from '../types/news';
+import { IAuthor } from '../types/author';
+import { ICategory } from '../types/category';
+
+export type INewsCreate = {
+  title: string;
+  subTitle: string;
+  content: string;
+  cover: string;
+  author_id: IAuthor['id'];
+  category_id: ICategory['id'];
+  main?: boolean;
+};
 
 @Injectable({
   providedIn: 'root',
@@ -16,6 +28,8 @@ export class NewsService {
     Authorization: `Bearer ${environment.supabaseKey}`,
     'Content-Type': 'application/json',
   });
+
+  private writeHeaders = this.headers.set('Prefer', 'return=representation');
 
   private toNews(news: INewsResponse): INews {
     return {
@@ -60,5 +74,21 @@ export class NewsService {
         headers: this.headers,
       })
       .pipe(map((news) => news.map((n) => this.toNews(n))));
+  }
+
+  create(news: INewsCreate): Observable<INews> {
+    return this.http
+      .post<INewsResponse[]>(this.url, news, { headers: this.writeHeaders })
+      .pipe(map((n) => this.toNews(n[0])));
+  }
+
+  update(id: number, news: INewsCreate): Observable<INews> {
+    return this.http
+      .patch<INewsResponse[]>(`${this.url}?id=eq.${id}`, news, { headers: this.writeHeaders })
+      .pipe(map((n) => this.toNews(n[0])));
+  }
+
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.url}?id=eq.${id}`, { headers: this.headers });
   }
 }

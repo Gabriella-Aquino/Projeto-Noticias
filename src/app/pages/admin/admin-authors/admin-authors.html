@@ -1,0 +1,103 @@
+<div class="admin-section">
+  <div class="admin-section-header">
+    <h1>Autores</h1>
+    <button nz-button nzType="primary" (click)="openCreateModal()">
+      <span nz-icon nzType="plus"></span>
+      Novo autor
+    </button>
+  </div>
+
+  @if (loading()) {
+    <p class="admin-empty">Carregando autores...</p>
+  } @else if (authors().length === 0) {
+    <p class="admin-empty">Nenhum autor cadastrado.</p>
+  } @else {
+    <ul class="crud-list">
+      @for (author of authors(); track author.id) {
+        <li class="crud-row">
+          <div class="crud-row__identity">
+            @if (author.avatar) {
+              <img class="crud-row__avatar" [src]="author.avatar" [alt]="author.name" />
+            } @else {
+              <span class="crud-row__avatar crud-row__avatar--placeholder">{{ author.name[0] }}</span>
+            }
+            <span class="crud-row__label">{{ author.name }}</span>
+          </div>
+          <div class="crud-row__actions">
+            <button nz-button nzType="text" (click)="openEditModal(author)" aria-label="Editar autor">
+              <span nz-icon nzType="edit"></span>
+            </button>
+            <button
+              nz-button
+              nzType="text"
+              nzDanger
+              nz-popconfirm
+              nzPopconfirmTitle="Excluir este autor?"
+              (nzOnConfirm)="remove(author)"
+              aria-label="Excluir autor"
+            >
+              <span nz-icon nzType="delete"></span>
+            </button>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</div>
+
+<nz-modal
+  [(nzVisible)]="isModalVisible"
+  [nzTitle]="editingAuthor() ? 'Editar autor' : 'Novo autor'"
+  (nzOnCancel)="closeModal()"
+  (nzOnOk)="submit()"
+  nzOkText="Salvar"
+  nzCancelText="Cancelar"
+>
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="form">
+      <nz-form-item>
+        <nz-form-label nzFor="name">Nome</nz-form-label>
+        <nz-form-control
+          [nzErrorTip]="
+            form.controls.name.hasError('required')
+              ? 'Informe o nome do autor.'
+              : 'O nome deve ter pelo menos 2 caracteres.'
+          "
+        >
+          <input nz-input id="name" formControlName="name" placeholder="Ex.: Maria Silva" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>Avatar</nz-form-label>
+        <nz-form-control>
+          <nz-radio-group [ngModel]="avatarSource()" [ngModelOptions]="{ standalone: true }" (ngModelChange)="avatarSource.set($event)">
+            <label nz-radio-button nzValue="url">URL</label>
+            <label nz-radio-button nzValue="file">Arquivo do dispositivo</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+
+      @if (avatarSource() === 'url') {
+        <nz-form-item>
+          <nz-form-control>
+            <input nz-input id="avatar" formControlName="avatar" placeholder="https://..." />
+          </nz-form-control>
+        </nz-form-item>
+      } @else {
+        <nz-form-item>
+          <nz-form-control>
+            <input type="file" accept="image/*" (change)="onAvatarFileSelected($event)" />
+            @if (uploadingAvatar()) {
+              <p class="admin-hint">Enviando imagem...</p>
+            }
+          </nz-form-control>
+        </nz-form-item>
+      }
+
+      @if (form.controls.avatar.value) {
+        <img class="admin-image-preview" [src]="form.controls.avatar.value" alt="Pré-visualização do avatar" />
+      }
+    </form>
+  </ng-container>
+</nz-modal>

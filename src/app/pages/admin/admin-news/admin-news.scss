@@ -1,0 +1,114 @@
+@use 'tools' as t;
+@use 'colors' as c;
+@use 'fonts' as f;
+
+.admin-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  h1 {
+    margin: 0;
+    font-family: f.$logo-pj-main-font;
+    font-size: f.$logo-pj-title-size;
+    font-weight: 600;
+    color: #222;
+  }
+}
+
+.admin-empty {
+  color: #666;
+  font-size: 1.6rem;
+}
+
+.admin-hint {
+  margin: 0.6rem 0 0;
+  font-size: 1.3rem;
+  color: #666;
+}
+
+.admin-image-preview {
+  display: block;
+  width: 100%;
+  max-width: 24rem;
+  max-height: 16rem;
+  object-fit: cover;
+  border-radius: 4px;
+  margin: 0 0 1.6rem;
+}
+
+.crud-list {
+  @include t.crud-list;
+}
+
+.crud-row {
+  @include t.crud-row;
+
+  &__identity {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    min-width: 0;
+  }
+
+  &__thumb {
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 4px;
+    object-fit: cover;
+    flex-shrink: 0;
+
+    &--placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: c.$logo-pj-black;
+      color: white;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+  }
+
+  &__label {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.6rem;
+    color: #222;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__badge {
+    flex-shrink: 0;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #ff2f2f;
+    border: 1px solid #ff2f2f;
+    border-radius: 4px;
+    padding: 0.1rem 0.6rem;
+  }
+
+  &__meta {
+    font-size: 1.4rem;
+    color: #666;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__actions {
+    @include t.crud-row-actions;
+  }
+}

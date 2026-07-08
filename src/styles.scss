@@ -45,24 +45,84 @@ html {
 }
 
 .ant-modal-content {
-  background-color: #333 !important;
-}
-
-.ant-modal-close {
-  background-color: #333 !important;
+  background-color: #fff !important;
+  border-radius: 8px !important;
+  overflow: hidden;
 }
 
 .ant-modal-header {
-  background-color: #333 !important;
+  background-color: #fff !important;
+  border-bottom: 1px solid #e6e6e6 !important;
+  padding: 1.6rem 2.4rem;
 }
 
 .ant-modal-title {
-  color: white;
+  color: #222;
+  font-weight: 600;
+}
+
+.ant-modal-close {
+  background-color: transparent !important;
+  top: 0.4rem;
+  right: 0.4rem;
 }
 
 .ant-modal-close-x {
-  color: white;
+  color: rgba(0, 0, 0, 0.45);
+  width: 4rem;
+  height: 4rem;
+  line-height: 4rem;
+  transition: color 0.15s ease-out;
 }
+
+.ant-modal-close:hover .ant-modal-close-x {
+  color: #222;
+}
+
+.ant-modal-body {
+  color: rgba(0, 0, 0, 0.85);
+  padding: 2.4rem;
+  max-height: calc(100vh - 22rem);
+  overflow-y: auto;
+}
+
+.cdk-global-scrollblock {
+  overflow-y: hidden !important;
+}
+
+.ant-modal .ant-form-item-label > label {
+  color: rgba(0, 0, 0, 0.85);
+}
+
+.ant-modal .ant-form-item-required::before {
+  color: #ff2f2f !important;
+}
+
+.ant-modal-footer {
+  border-top: 1px solid #e6e6e6 !important;
+  padding: 1.2rem 2.4rem;
+}
+
+.ant-modal-footer .ant-btn {
+  border-radius: 4px;
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 1.3rem;
+}
+
+.ant-modal-footer .ant-btn-default {
+  background-color: transparent;
+  border-color: #d9d9d9;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.ant-modal-footer .ant-btn-default:hover,
+.ant-modal-footer .ant-btn-default:focus {
+  border-color: #222;
+  color: #222;
+  background-color: #f5f5f5;
+}
+
 
 :host {
   display: flex;

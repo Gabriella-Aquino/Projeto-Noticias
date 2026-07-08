@@ -1,0 +1,90 @@
+<div class="admin-section">
+  <div class="admin-section-header">
+    <h1>Usuários</h1>
+    <button nz-button nzType="primary" (click)="openCreateModal()">
+      <span nz-icon nzType="plus"></span>
+      Novo usuário
+    </button>
+  </div>
+
+  @if (users().length === 0) {
+    <p class="admin-empty">Nenhum usuário cadastrado.</p>
+  } @else {
+    <ul class="crud-list">
+      @for (user of users(); track user.id) {
+        <li class="crud-row">
+          <div class="crud-row__identity">
+            <span class="crud-row__label">{{ user.name }}</span>
+            <span class="crud-row__email">{{ user.email }}</span>
+            <nz-tag [nzColor]="user.role === 'admin' ? 'red' : 'blue'">
+              {{ user.role === 'admin' ? 'Admin' : 'Editor' }}
+            </nz-tag>
+          </div>
+          <div class="crud-row__actions">
+            <button
+              nz-button
+              nzType="text"
+              nzDanger
+              nz-popconfirm
+              nzPopconfirmTitle="Excluir este usuário?"
+              (nzOnConfirm)="remove(user)"
+              aria-label="Excluir usuário"
+            >
+              <span nz-icon nzType="delete"></span>
+            </button>
+          </div>
+        </li>
+      }
+    </ul>
+  }
+</div>
+
+<nz-modal
+  [(nzVisible)]="isModalVisible"
+  nzTitle="Novo usuário"
+  (nzOnCancel)="closeModal()"
+  (nzOnOk)="submit()"
+  nzOkText="Cadastrar"
+  nzCancelText="Cancelar"
+>
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="form">
+      <nz-form-item>
+        <nz-form-label nzFor="name">Nome</nz-form-label>
+        <nz-form-control
+          [nzErrorTip]="
+            form.controls.name.hasError('required')
+              ? 'Informe o nome.'
+              : 'O nome deve ter pelo menos 2 caracteres.'
+          "
+        >
+          <input nz-input id="name" formControlName="name" placeholder="Nome completo" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzFor="email">E-mail</nz-form-label>
+        <nz-form-control [nzErrorTip]="emailErrorMessage()">
+          <input nz-input id="email" type="email" formControlName="email" placeholder="seu@email.com" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzFor="password">Senha</nz-form-label>
+        <nz-form-control [nzErrorTip]="passwordErrorMessage()">
+          <input nz-input id="password" type="password" formControlName="password" placeholder="Senha forte" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzFor="role">Papel</nz-form-label>
+        <nz-form-control>
+          <nz-select id="role" formControlName="role">
+            <nz-option nzLabel="Editor" nzValue="editor" />
+            <nz-option nzLabel="Admin" nzValue="admin" />
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
+</nz-modal>

@@ -1,4 +1,4 @@
-<button nz-button [nzType]="variant()">
+<button nz-button [nzType]="variant()" (click)="clicked.emit()">
     @if (icon()) {
     <span nz-icon [nzType]="icon()!"></span>
     }
