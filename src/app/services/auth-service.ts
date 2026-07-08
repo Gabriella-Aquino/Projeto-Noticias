@@ -5,7 +5,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 import { tap } from 'rxjs';
 
-const SESSION_KEY = 'projeto-noticias:currentUserId';
+const ACCESS_TOKEN_KEY = 'access_token';
+const REFRESH_TOKEN_KEY = 'refresh_token';
+const USER_ID_KEY = 'user_id';
+
 interface LoginResponse {
   access_token: string;
   refresh_token: string;
@@ -22,20 +25,14 @@ interface LoginResponse {
 })
 export class AuthService {
   #http = inject(HttpClient);
-
-  #accessToken = signal(localStorage.getItem('access_token'));
-
-  readonly token = this.#accessToken.asReadonly();
-
-  readonly headers = new HttpHeaders({
-    apikey: environment.supabaseKey,
-    Authorization: `Bearer ${environment.supabaseKey}`,
-    'Content-Type': 'application/json',
-  });
-
   private userService = inject(UserService);
 
-  private currentUserId = signal<string | null>(this.readSession());
+  private authUrl = environment.supabaseUrl.replace('/rest/v1/', '/auth/v1/');
+
+  #accessToken = signal(localStorage.getItem(ACCESS_TOKEN_KEY));
+  readonly token = this.#accessToken.asReadonly();
+
+  private currentUserId = signal<string | null>(localStorage.getItem(USER_ID_KEY));
 
   readonly currentUser = computed<IUser | null>(() => {
     const id = this.currentUserId();
@@ -45,28 +42,36 @@ export class AuthService {
   readonly isLoggedIn = computed(() => !!this.#accessToken());
   readonly isAdmin = computed(() => this.currentUser()?.role === 'admin');
 
+  readonly headers = new HttpHeaders({
+    apikey: environment.supabaseKey,
+    Authorization: `Bearer ${environment.supabaseKey}`,
+    'Content-Type': 'application/json',
+  });
+
   login(email: string, password: string) {
-    const loginUrl = `${environment.supabaseUrl.replace('/rest/v1/', '/auth/v1/')}token?grant_type=password`;
+    const loginUrl = `${this.authUrl}token?grant_type=password`;
+
     return this.#http
       .post<LoginResponse>(loginUrl, { email, password }, { headers: this.headers })
       .pipe(
         tap((res) => {
-          localStorage.setItem('access_token', res.access_token);
-          localStorage.setItem('refresh_token', res.refresh_token);
-          localStorage.setItem('user_id', res.user.id);
+          localStorage.setItem(ACCESS_TOKEN_KEY, res.access_token);
+          localStorage.setItem(REFRESH_TOKEN_KEY, res.refresh_token);
+          localStorage.setItem(USER_ID_KEY, res.user.id);
 
           this.#accessToken.set(res.access_token);
+          this.currentUserId.set(res.user.id);
         }),
       );
   }
 
   logout(): void {
-    this.currentUserId.set(null);
-    sessionStorage.removeItem(SESSION_KEY);
-  }
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+    localStorage.removeItem(REFRESH_TOKEN_KEY);
+    localStorage.removeItem(USER_ID_KEY);
 
-  private readSession(): string | null {
-    return sessionStorage.getItem(SESSION_KEY);
+    this.#accessToken.set(null);
+    this.currentUserId.set(null);
   }
 
   getAuthHeaders() {
