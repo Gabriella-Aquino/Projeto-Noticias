@@ -42,6 +42,15 @@ __screenshots__/
 # System files
 .DS_Store
 Thumbs.db
-
+ 
 # env
 environment*
+
+#skills
+.claude**
+.claude/skills**
+
+#documentação de estilo
+PRODUCT.md
+DESIGN.md
+.impeccable**

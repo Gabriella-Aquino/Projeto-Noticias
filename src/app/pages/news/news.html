@@ -1,18 +1,18 @@
-<div class="news-container">
+  <div class="news-container">
   <app-logo-with-redirect />
   @if (newsData()) {
-    <div class="news">
-      <section class="news-info">
-        <header>
-          <hgroup>
-            <h1>{{ newsData()?.title }}</h1>
-            <p class="subtitle">{{ newsData()?.subTitle }}</p>
-          </hgroup>
-          <hr />
-          <div class="meta-data">
-            <address>Publicado por {{ authorData()?.name || 'Redação' }}</address>
-            <div class="realease-info">
-              <p>Publicado em: {{ newsData()?.created | date: 'dd/MM/yyyy' }}</p>
+  <div class="news">
+    <section class="news-info">
+      <header>
+        <hgroup>
+          <h1>{{ newsData()?.title }}</h1>
+          <p class="subtitle">{{ newsData()?.subTitle }}</p>
+        </hgroup>
+        <hr />
+        <div class="meta-data">
+          <address>Publicado por {{ authorData()?.name || 'Redação' }}</address>
+          <div class="realease-info">
+            <p>Publicado em: {{ newsData()?.created | date: 'dd/MM/yyyy' }}</p>
 
               @if (updatedAtDate()) {
                 <p>-</p>
@@ -31,6 +31,6 @@
       <section class="news-content" [innerHTML]="newsData()?.content"></section>
     </div>
   } @else {
-    <p>Notícia não encontrada.</p>
+  <p>Notícia não encontrada.</p>
   }
 </div>
