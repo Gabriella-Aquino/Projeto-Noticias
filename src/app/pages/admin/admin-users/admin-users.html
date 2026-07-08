@@ -15,7 +15,6 @@
         <li class="crud-row">
           <div class="crud-row__identity">
             <span class="crud-row__label">{{ user.name }}</span>
-            <span class="crud-row__email">{{ user.email }}</span>
             <nz-tag [nzColor]="user.role === 'admin' ? 'red' : 'blue'">
               {{ user.role === 'admin' ? 'Admin' : 'Editor' }}
             </nz-tag>
@@ -59,20 +58,6 @@
           "
         >
           <input nz-input id="name" formControlName="name" placeholder="Nome completo" />
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-item>
-        <nz-form-label nzFor="email">E-mail</nz-form-label>
-        <nz-form-control [nzErrorTip]="emailErrorMessage()">
-          <input nz-input id="email" type="email" formControlName="email" placeholder="seu@email.com" />
-        </nz-form-control>
-      </nz-form-item>
-
-      <nz-form-item>
-        <nz-form-label nzFor="password">Senha</nz-form-label>
-        <nz-form-control [nzErrorTip]="passwordErrorMessage()">
-          <input nz-input id="password" type="password" formControlName="password" placeholder="Senha forte" />
         </nz-form-control>
       </nz-form-item>
 

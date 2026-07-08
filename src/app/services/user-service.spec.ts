@@ -1,52 +1,72 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { HttpTestingController, provideHttpClientTesting } from '@angular/common/http/testing';
 
 import { UserService } from './user-service';
+import { environment } from '../../environments/environment.development';
 
 describe('UserService', () => {
   let service: UserService;
+  let httpMock: HttpTestingController;
+  const url = `${environment.supabaseUrl}profiles`;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    });
     service = TestBed.inject(UserService);
+    httpMock = TestBed.inject(HttpTestingController);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should seed admin and editor users with uuid ids', () => {
-    const users = service.getAll();
+  it('should fetch all profiles', () => {
+    const profiles = [
+      { id: '1', name: 'Administrador', role: 'admin' },
+      { id: '2', name: 'Editore', role: 'editor' },
+    ];
 
-    expect(users.length).toBe(2);
-    expect(service.findByEmail('admin@jornal.com')?.role).toBe('admin');
-    expect(typeof users[0].id).toBe('string');
-  });
-
-  it('should create a new user with a generated uuid', () => {
-    const created = service.create({
-      name: 'Novo Usuário',
-      email: 'novo@jornal.com',
-      password: 'Senha@123',
-      role: 'editor',
+    service.getAll().subscribe((users) => {
+      expect(users).toEqual(profiles);
     });
 
-    expect(created.id).toMatch(/^[0-9a-f-]{36}$/);
-    expect(service.getAll().length).toBe(3);
+    const req = httpMock.expectOne(`${url}?select=id,name,role`);
+    expect(req.request.method).toBe('GET');
+    req.flush(profiles);
   });
 
-  it('should delete a user', () => {
-    const editor = service.findByEmail('editor@jornal.com')!;
-    service.delete(editor.id);
+  it('should fetch a profile by id', () => {
+    const profile = { id: '1', name: 'Administrador', role: 'admin' };
 
-    expect(service.findById(editor.id)).toBeUndefined();
-    expect(service.getAll().length).toBe(1);
+    service.findById('1').subscribe((user) => {
+      expect(user).toEqual(profile);
+    });
+
+    const req = httpMock.expectOne(`${url}?id=eq.1&select=id,name,role`);
+    expect(req.request.method).toBe('GET');
+    req.flush([profile]);
   });
 
-  it('should detect duplicate emails', () => {
-    const admin = service.findByEmail('admin@jornal.com')!;
+  it('should return null when a profile is not found', () => {
+    service.findById('missing').subscribe((user) => {
+      expect(user).toBeNull();
+    });
 
-    expect(service.emailExists('admin@jornal.com')).toBe(true);
-    expect(service.emailExists('admin@jornal.com', admin.id)).toBe(false);
-    expect(service.emailExists('inexistente@jornal.com')).toBe(false);
+    const req = httpMock.expectOne(`${url}?id=eq.missing&select=id,name,role`);
+    req.flush([]);
+  });
+
+  it('should delete a profile', () => {
+    service.delete('1').subscribe();
+
+    const req = httpMock.expectOne(`${url}?id=eq.1`);
+    expect(req.request.method).toBe('DELETE');
+    req.flush(null);
   });
 });

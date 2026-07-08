@@ -1,56 +1,42 @@
-import { Injectable, signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map, Observable, of } from 'rxjs';
+import { environment } from '../../environments/environment.development';
 import { IUser, IUserCreate } from '../types/user';
-
-const SEED_USERS: IUser[] = [
-  {
-    id: '3e2f6f8a-2b7a-4c3e-9c1a-9a6b8b1e1a01',
-    name: 'Administrador',
-    email: 'admin@jornal.com',
-    password: 'Admin@123',
-    role: 'admin',
-  },
-  {
-    id: '3e2f6f8a-2b7a-4c3e-9c1a-9a6b8b1e1a02',
-    name: 'Editore',
-    email: 'editor@jornal.com',
-    password: 'Editor@123',
-    role: 'editor',
-  },
-];
+import { getCookie } from '../utils/cookie';
+import { ACCESS_TOKEN_KEY } from '../utils/storage-keys';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private usersSignal = signal<IUser[]>(SEED_USERS);
+  private http = inject(HttpClient);
+  private url = `${environment.supabaseUrl}profiles`;
 
-  readonly users = this.usersSignal.asReadonly();
-
-  getAll(): IUser[] {
-    return this.usersSignal();
+  private get headers(): HttpHeaders {
+    return new HttpHeaders({
+      apikey: environment.supabaseKey,
+      Authorization: `Bearer ${getCookie(ACCESS_TOKEN_KEY) ?? environment.supabaseKey}`,
+      'Content-Type': 'application/json',
+    });
   }
 
-  findByEmail(email: string): IUser | undefined {
-    return this.usersSignal().find((user) => user.email.toLowerCase() === email.toLowerCase());
+  getAll(): Observable<IUser[]> {
+    return this.http.get<IUser[]>(`${this.url}?select=id,name,role`, { headers: this.headers });
   }
 
-  findById(id: string): IUser | undefined {
-    return this.usersSignal().find((user) => user.id === id);
+  findById(id: string): Observable<IUser | null> {
+    return this.http
+      .get<IUser[]>(`${this.url}?id=eq.${id}&select=id,name,role`, { headers: this.headers })
+      .pipe(map((users) => users[0] ?? null));
   }
 
-  emailExists(email: string, excludeId?: string): boolean {
-    return this.usersSignal().some(
-      (user) => user.email.toLowerCase() === email.toLowerCase() && user.id !== excludeId
-    );
+  create(_user: IUserCreate): Observable<IUser | null> {
+
+    return of(null);
   }
 
-  create(user: IUserCreate): IUser {
-    const newUser: IUser = { ...user, id: crypto.randomUUID() };
-    this.usersSignal.update((users) => [...users, newUser]);
-    return newUser;
-  }
-
-  delete(id: string): void {
-    this.usersSignal.update((users) => users.filter((user) => user.id !== id));
+  delete(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.url}?id=eq.${id}`, { headers: this.headers });
   }
 }

@@ -5,10 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment.development';
 import { tap } from 'rxjs';
 import { deleteCookie, getCookie, setCookie } from '../utils/cookie';
+import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY, USER_ID_KEY } from '../utils/storage-keys';
 
-const ACCESS_TOKEN_KEY = 'access_token';
-const REFRESH_TOKEN_KEY = 'refresh_token';
-const USER_ID_KEY = 'user_id';
 const REFRESH_TOKEN_MAX_AGE = 60 * 60 * 24 * 30;
 
 interface LoginResponse {
@@ -34,12 +32,8 @@ export class AuthService {
   #accessToken = signal(getCookie(ACCESS_TOKEN_KEY));
   readonly token = this.#accessToken.asReadonly();
 
-  private currentUserId = signal<string | null>(getCookie(USER_ID_KEY));
-
-  readonly currentUser = computed<IUser | null>(() => {
-    const id = this.currentUserId();
-    return id !== null ? (this.userService.findById(id) ?? null) : null;
-  });
+  #currentUser = signal<IUser | null>(null);
+  readonly currentUser = this.#currentUser.asReadonly();
 
   readonly isLoggedIn = computed(() => !!this.#accessToken());
   readonly isAdmin = computed(() => this.currentUser()?.role === 'admin');
@@ -49,6 +43,13 @@ export class AuthService {
     Authorization: `Bearer ${environment.supabaseKey}`,
     'Content-Type': 'application/json',
   });
+
+  constructor() {
+    const userId = getCookie(USER_ID_KEY);
+    if (userId) {
+      this.loadProfile(userId);
+    }
+  }
 
   login(email: string, password: string) {
     const loginUrl = `${this.authUrl}token?grant_type=password`;
@@ -62,7 +63,7 @@ export class AuthService {
           setCookie(USER_ID_KEY, res.user.id, REFRESH_TOKEN_MAX_AGE);
 
           this.#accessToken.set(res.access_token);
-          this.currentUserId.set(res.user.id);
+          this.loadProfile(res.user.id);
         }),
       );
   }
@@ -73,7 +74,7 @@ export class AuthService {
     deleteCookie(USER_ID_KEY);
 
     this.#accessToken.set(null);
-    this.currentUserId.set(null);
+    this.#currentUser.set(null);
   }
 
   getAuthHeaders() {
@@ -82,5 +83,9 @@ export class AuthService {
       Authorization: `Bearer ${this.#accessToken()}`,
       'Content-Type': 'application/json',
     });
+  }
+
+  private loadProfile(id: string): void {
+    this.userService.findById(id).subscribe((profile) => this.#currentUser.set(profile));
   }
 }

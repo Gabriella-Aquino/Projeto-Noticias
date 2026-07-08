@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzModalModule } from 'ng-zorro-antd/modal';
@@ -12,7 +12,6 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { UserService } from '../../../services/user-service';
 import { AuthService } from '../../../services/auth-service';
 import { IUser } from '../../../types/user';
-import { strongPasswordValidator } from '../../../validators/strong-password-validator';
 
 @Component({
   selector: 'app-admin-users',
@@ -36,49 +35,21 @@ export class AdminUsers {
   private message = inject(NzMessageService);
   private fb = inject(FormBuilder);
 
-  users = this.userService.users;
+  users = signal<IUser[]>([]);
   currentUser = this.authService.currentUser;
   isModalVisible = signal(false);
 
   form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, strongPasswordValidator]],
     role: ['editor' as 'admin' | 'editor', [Validators.required]],
   });
 
-  passwordErrorMessage(): string {
-    const errors: ValidationErrors | null = this.form.controls.password.errors;
-
-    if (errors?.['required']) {
-      return 'Informe uma senha.';
-    }
-
-    const strongPasswordErrors = errors?.['strongPassword'];
-    if (!strongPasswordErrors) {
-      return '';
-    }
-
-    const missing: string[] = [];
-    if (strongPasswordErrors.minLength) missing.push('8 caracteres');
-    if (strongPasswordErrors.uppercase) missing.push('1 letra maiúscula');
-    if (strongPasswordErrors.lowercase) missing.push('1 letra minúscula');
-    if (strongPasswordErrors.number) missing.push('1 número');
-    if (strongPasswordErrors.specialChar) missing.push('1 caractere especial');
-
-    return `A senha precisa ter ao menos: ${missing.join(', ')}.`;
-  }
-
-  emailErrorMessage(): string {
-    const control = this.form.controls.email;
-    if (control.hasError('required')) return 'Informe o e-mail.';
-    if (control.hasError('email')) return 'Informe um e-mail válido.';
-    if (control.hasError('emailTaken')) return 'Já existe um usuário com este e-mail.';
-    return '';
+  constructor() {
+    this.refresh();
   }
 
   openCreateModal(): void {
-    this.form.reset({ name: '', email: '', password: '', role: 'editor' });
+    this.form.reset({ name: '', role: 'editor' });
     this.isModalVisible.set(true);
   }
 
@@ -87,20 +58,22 @@ export class AdminUsers {
   }
 
   submit(): void {
-    const email = this.form.controls.email.value;
-    if (email && this.userService.emailExists(email)) {
-      this.form.controls.email.setErrors({ emailTaken: true });
-    }
-
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
-    const { name, password, role } = this.form.getRawValue();
-    this.userService.create({ name, email: email!, password, role });
-    this.message.success('Usuário cadastrado com sucesso.');
-    this.isModalVisible.set(false);
+    const { name, role } = this.form.getRawValue();
+    this.userService.create({ name, role }).subscribe((user) => {
+      if (!user) {
+        this.message.warning('Cadastro de usuários ainda não está disponível.');
+        return;
+      }
+
+      this.message.success('Usuário cadastrado com sucesso.');
+      this.isModalVisible.set(false);
+      this.refresh();
+    });
   }
 
   remove(user: IUser): void {
@@ -109,7 +82,13 @@ export class AdminUsers {
       return;
     }
 
-    this.userService.delete(user.id);
-    this.message.success('Usuário excluído com sucesso.');
+    this.userService.delete(user.id).subscribe(() => {
+      this.message.success('Usuário excluído com sucesso.');
+      this.refresh();
+    });
+  }
+
+  private refresh(): void {
+    this.userService.getAll().subscribe((users) => this.users.set(users));
   }
 }
