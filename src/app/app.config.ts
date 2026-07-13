@@ -21,7 +21,8 @@ import { pt_BR, provideNzI18n } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import pt from '@angular/common/locales/pt';
 import { provideNzIcons } from 'ng-zorro-antd/icon';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { supabaseAuthInterceptor } from './interceptors/supabase-auth.interceptor';
 
 registerLocaleData(pt);
 
@@ -46,6 +47,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideNzI18n(pt_BR),
     provideNzIcons(icons),
-    provideHttpClient(),
+    provideHttpClient(withInterceptors([supabaseAuthInterceptor])),
   ],
 };

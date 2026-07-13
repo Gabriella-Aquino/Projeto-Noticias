@@ -13,12 +13,7 @@ export class CategoryService {
   private http = inject(HttpClient);
   private url = `${environment.supabaseUrl}category`;
 
-  private headers = new HttpHeaders({
-    apikey: environment.supabaseKey,
-    Authorization: `Bearer ${environment.supabaseKey}`,
-    'Content-Type': 'application/json',
-  });
-
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   private writeHeaders = this.headers.set('Prefer', 'return=representation');
 
   getAll(): Observable<ICategory[]> {
