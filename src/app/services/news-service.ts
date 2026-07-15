@@ -14,6 +14,7 @@ export type INewsCreate = {
   author_id: IAuthor['id'];
   category_id: ICategory['id'];
   main?: boolean;
+  created_by?: string;
 };
 
 @Injectable({

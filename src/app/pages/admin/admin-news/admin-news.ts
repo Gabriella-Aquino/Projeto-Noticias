@@ -14,6 +14,7 @@ import { NewsService } from '../../../services/news-service';
 import { CategoryService } from '../../../services/category';
 import { AuthorService } from '../../../services/author-service';
 import { StorageService } from '../../../services/storage-service';
+import { AuthService } from '../../../services/auth-service';
 import { INews } from '../../../types/news';
 import { ICategory } from '../../../types/category';
 import { IAuthor } from '../../../types/author';
@@ -41,6 +42,7 @@ export class AdminNews {
   private categoryService = inject(CategoryService);
   private authorService = inject(AuthorService);
   private storageService = inject(StorageService);
+  private authService = inject(AuthService);
   private message = inject(NzMessageService);
   private fb = inject(FormBuilder);
 
@@ -159,6 +161,7 @@ export class AdminNews {
     }
 
     const { title, subTitle, content, image, category, author, main } = this.form.getRawValue();
+    const editing = this.editingNews();
     const payload = {
       title,
       subTitle,
@@ -167,8 +170,8 @@ export class AdminNews {
       category_id: category!,
       author_id: author!,
       main,
+      ...(editing ? {} : { created_by: this.authService.currentUser()?.id }),
     };
-    const editing = this.editingNews();
 
     const request = editing ? this.newsService.update(editing.id, payload) : this.newsService.create(payload);
 
