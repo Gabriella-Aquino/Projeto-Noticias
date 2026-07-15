@@ -61,6 +61,8 @@
   nzOkText="Salvar"
   nzCancelText="Cancelar"
   nzWidth="60rem"
+  [nzOkLoading]="submitting()"
+  [nzCancelDisabled]="submitting()"
 >
   <ng-container *nzModalContent>
     <form nz-form [formGroup]="form">

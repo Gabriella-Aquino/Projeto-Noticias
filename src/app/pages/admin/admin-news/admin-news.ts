@@ -51,6 +51,7 @@ export class AdminNews {
   authors = signal<IAuthor[]>([]);
   loading = signal(false);
   isModalVisible = signal(false);
+  submitting = signal(false);
   editingNews = signal<INews | null>(null);
   imageSource = signal<'url' | 'file'>('url');
   uploadingImage = signal(false);
@@ -75,7 +76,9 @@ export class AdminNews {
     this.loading.set(true);
     this.newsService.getAll().subscribe({
       next: (news) => {
-        this.news.set(news);
+        const isAdmin = this.authService.isAdmin();
+        const currentUserId = this.authService.currentUser()?.id;
+        this.news.set(isAdmin ? news : news.filter((item) => item.createdBy === currentUserId));
         this.loading.set(false);
       },
       error: () => {
@@ -150,6 +153,10 @@ export class AdminNews {
   }
 
   submit(): void {
+    if (this.submitting()) {
+      return;
+    }
+
     if (this.uploadingImage()) {
       this.message.warning('Aguarde o envio da imagem terminar.');
       return;
@@ -175,13 +182,16 @@ export class AdminNews {
 
     const request = editing ? this.newsService.update(editing.id, payload) : this.newsService.create(payload);
 
+    this.submitting.set(true);
     request.subscribe({
       next: () => {
         this.message.success(editing ? 'Notícia atualizada com sucesso.' : 'Notícia criada com sucesso.');
+        this.submitting.set(false);
         this.isModalVisible.set(false);
         this.load();
       },
       error: () => {
+        this.submitting.set(false);
         this.message.error('Não foi possível salvar a notícia.');
       },
     });
