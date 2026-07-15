@@ -15,6 +15,7 @@ import { CategoryService } from '../../../services/category';
 import { AuthorService } from '../../../services/author-service';
 import { StorageService } from '../../../services/storage-service';
 import { AuthService } from '../../../services/auth-service';
+import { of, switchMap } from 'rxjs';
 import { INews } from '../../../types/news';
 import { ICategory } from '../../../types/category';
 import { IAuthor } from '../../../types/author';
@@ -180,7 +181,8 @@ export class AdminNews {
       ...(editing ? {} : { created_by: this.authService.currentUser()?.id }),
     };
 
-    const request = editing ? this.newsService.update(editing.id, payload) : this.newsService.create(payload);
+    const save = () => (editing ? this.newsService.update(editing.id, payload) : this.newsService.create(payload));
+    const request = main ? this.newsService.clearMain(editing?.id ?? null).pipe(switchMap(save)) : of(null).pipe(switchMap(save));
 
     this.submitting.set(true);
     request.subscribe({

@@ -93,4 +93,9 @@ export class NewsService {
   delete(id: number): Observable<void> {
     return this.http.delete<void>(`${this.url}?id=eq.${id}`, { headers: this.headers });
   }
+
+  clearMain(excludeId: number | null): Observable<void> {
+    const filter = excludeId ? `main=eq.true&id=neq.${excludeId}` : 'main=eq.true';
+    return this.http.patch<void>(`${this.url}?${filter}`, { main: false }, { headers: this.headers });
+  }
 }
