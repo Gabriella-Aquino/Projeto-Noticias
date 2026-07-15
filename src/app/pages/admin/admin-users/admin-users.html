@@ -45,6 +45,8 @@
   (nzOnOk)="submit()"
   nzOkText="Cadastrar"
   nzCancelText="Cancelar"
+  [nzOkLoading]="submitting()"
+  [nzCancelDisabled]="submitting()"
 >
   <ng-container *nzModalContent>
     <form nz-form [formGroup]="form">

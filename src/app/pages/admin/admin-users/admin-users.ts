@@ -39,6 +39,7 @@ export class AdminUsers {
   users = signal<IUser[]>([]);
   currentUser = this.authService.currentUser;
   isModalVisible = signal(false);
+  submitting = signal(false);
 
   form = this.fb.nonNullable.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
@@ -90,19 +91,26 @@ export class AdminUsers {
   }
 
   submit(): void {
+    if (this.submitting()) {
+      return;
+    }
+
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
     }
 
     const { name, email, password, role } = this.form.getRawValue();
+    this.submitting.set(true);
     this.userService.create({ name, email, password, role }).subscribe({
       next: () => {
         this.message.success('Usuário cadastrado com sucesso.');
+        this.submitting.set(false);
         this.isModalVisible.set(false);
         this.refresh();
       },
       error: () => {
+        this.submitting.set(false);
         this.message.error('Não foi possível cadastrar o usuário. Verifique o e-mail informado.');
       },
     });

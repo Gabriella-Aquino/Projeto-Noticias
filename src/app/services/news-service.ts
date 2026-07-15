@@ -44,6 +44,7 @@ export class NewsService {
       author: news.author_id,
       category: news.category_id,
       main: news.main,
+      createdBy: news.created_by,
     };
   }
 
