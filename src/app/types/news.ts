@@ -12,6 +12,7 @@ export interface INews {
   author: IAuthor["id"];
   category: ICategory['id'];
   main?: boolean;
+  createdBy?: string;
 }
 
 export interface INewsResponse {
@@ -25,4 +26,5 @@ export interface INewsResponse {
   main?: boolean;
   author_id: IAuthor['id'];
   category_id: ICategory['id'];
+  created_by?: string;
 }

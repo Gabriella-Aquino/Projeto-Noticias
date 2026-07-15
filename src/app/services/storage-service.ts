@@ -12,11 +12,7 @@ export class StorageService {
 
   uploadImage(file: File, bucket: string): Observable<string> {
     const path = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
-    const headers = new HttpHeaders({
-      apikey: environment.supabaseKey,
-      Authorization: `Bearer ${environment.supabaseKey}`,
-      'Content-Type': file.type,
-    });
+    const headers = new HttpHeaders({ 'Content-Type': file.type });
 
     return this.http
       .post(`${this.storageUrl}object/${bucket}/${path}`, file, { headers })

@@ -14,6 +14,8 @@ import { NewsService } from '../../../services/news-service';
 import { CategoryService } from '../../../services/category';
 import { AuthorService } from '../../../services/author-service';
 import { StorageService } from '../../../services/storage-service';
+import { AuthService } from '../../../services/auth-service';
+import { of, switchMap } from 'rxjs';
 import { INews } from '../../../types/news';
 import { ICategory } from '../../../types/category';
 import { IAuthor } from '../../../types/author';
@@ -41,6 +43,7 @@ export class AdminNews {
   private categoryService = inject(CategoryService);
   private authorService = inject(AuthorService);
   private storageService = inject(StorageService);
+  private authService = inject(AuthService);
   private message = inject(NzMessageService);
   private fb = inject(FormBuilder);
 
@@ -49,6 +52,7 @@ export class AdminNews {
   authors = signal<IAuthor[]>([]);
   loading = signal(false);
   isModalVisible = signal(false);
+  submitting = signal(false);
   editingNews = signal<INews | null>(null);
   imageSource = signal<'url' | 'file'>('url');
   uploadingImage = signal(false);
@@ -73,7 +77,9 @@ export class AdminNews {
     this.loading.set(true);
     this.newsService.getAll().subscribe({
       next: (news) => {
-        this.news.set(news);
+        const isAdmin = this.authService.isAdmin();
+        const currentUserId = this.authService.currentUser()?.id;
+        this.news.set(isAdmin ? news : news.filter((item) => item.createdBy === currentUserId));
         this.loading.set(false);
       },
       error: () => {
@@ -148,6 +154,10 @@ export class AdminNews {
   }
 
   submit(): void {
+    if (this.submitting()) {
+      return;
+    }
+
     if (this.uploadingImage()) {
       this.message.warning('Aguarde o envio da imagem terminar.');
       return;
@@ -159,6 +169,7 @@ export class AdminNews {
     }
 
     const { title, subTitle, content, image, category, author, main } = this.form.getRawValue();
+    const editing = this.editingNews();
     const payload = {
       title,
       subTitle,
@@ -167,18 +178,22 @@ export class AdminNews {
       category_id: category!,
       author_id: author!,
       main,
+      ...(editing ? {} : { created_by: this.authService.currentUser()?.id }),
     };
-    const editing = this.editingNews();
 
-    const request = editing ? this.newsService.update(editing.id, payload) : this.newsService.create(payload);
+    const save = () => (editing ? this.newsService.update(editing.id, payload) : this.newsService.create(payload));
+    const request = main ? this.newsService.clearMain(editing?.id ?? null).pipe(switchMap(save)) : of(null).pipe(switchMap(save));
 
+    this.submitting.set(true);
     request.subscribe({
       next: () => {
         this.message.success(editing ? 'Notícia atualizada com sucesso.' : 'Notícia criada com sucesso.');
+        this.submitting.set(false);
         this.isModalVisible.set(false);
         this.load();
       },
       error: () => {
+        this.submitting.set(false);
         this.message.error('Não foi possível salvar a notícia.');
       },
     });

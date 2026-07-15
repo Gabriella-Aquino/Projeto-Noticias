@@ -13,12 +13,7 @@ export class AuthorService {
   private http = inject(HttpClient);
   private url = `${environment.supabaseUrl}author`;
 
-  private headers = new HttpHeaders({
-    apikey: environment.supabaseKey,
-    Authorization: `Bearer ${environment.supabaseKey}`,
-    'Content-Type': 'application/json',
-  });
-
+  private headers = new HttpHeaders({ 'Content-Type': 'application/json' });
   private writeHeaders = this.headers.set('Prefer', 'return=representation');
 
   getAll(): Observable<IAuthor[]> {
