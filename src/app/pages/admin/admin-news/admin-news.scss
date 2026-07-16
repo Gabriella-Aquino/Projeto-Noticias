@@ -1,20 +1,8 @@
 @use 'tools' as t;
 @use 'colors' as c;
-@use 'fonts' as f;
 
 .admin-section-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1.5rem;
-
-  h1 {
-    margin: 0;
-    font-family: f.$logo-pj-main-font;
-    font-size: f.$logo-pj-title-size;
-    font-weight: 600;
-    color: #222;
-  }
+  @include t.admin-section-header;
 }
 
 .admin-empty {
@@ -50,6 +38,7 @@
     align-items: center;
     gap: 1.2rem;
     min-width: 0;
+    flex: 1 1 16rem;
   }
 
   &__thumb {
