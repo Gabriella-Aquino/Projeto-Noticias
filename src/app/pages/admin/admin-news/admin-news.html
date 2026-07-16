@@ -13,8 +13,8 @@
     <p class="admin-empty">Nenhuma notícia cadastrada.</p>
   } @else {
     <ul class="crud-list">
-      @for (item of news(); track item.id) {
-        <li class="crud-row">
+      @for (item of news(); track item.id; let i = $index) {
+        <li class="crud-row" [style.--i]="i">
           <div class="crud-row__identity">
             @if (item.image) {
               <img class="crud-row__thumb" [src]="item.image" [alt]="item.title" />
