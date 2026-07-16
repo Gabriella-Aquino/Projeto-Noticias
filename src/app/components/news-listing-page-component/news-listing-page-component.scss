@@ -61,6 +61,11 @@
       flex-direction: column;
       gap: 15px;
     }
+    .emptyState {
+      font-family: f.$logo-pj-main-font;
+      font-size: 1.6rem;
+      color: #666;
+    }
   }
 }
 

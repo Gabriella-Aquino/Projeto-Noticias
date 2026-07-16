@@ -3,6 +3,7 @@ import { News } from './pages/news/news';
 import { Home } from './pages/home/home';
 import { ColumnistDetails } from './pages/columnist-details/columnist-details';
 import { Category } from './pages/category/category';
+import { Search } from './pages/search/search';
 import { Login } from './pages/login/login';
 import { AdminLayout } from './pages/admin/admin-layout/admin-layout';
 import { AdminCategories } from './pages/admin/admin-categories/admin-categories';
@@ -17,6 +18,7 @@ export const routes: Routes = [
   { path: 'news/:id', component: News },
   { path: 'columnist/:id', component: ColumnistDetails},
   { path: 'category/:id', component: Category},
+  { path: 'search', component: Search },
   { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: 'login', component: Login },
   {

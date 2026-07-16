@@ -1,7 +1,7 @@
 <!-- DESKTOP: Barra de pesquisa normal -->
 <div id="search-bar">
-    <input nz-input placeholder="Busque uma notícia" />
-    <button class="desktop-only">
+    <input nz-input placeholder="Busque uma notícia" #desktopSearchInput (keydown.enter)="search(desktopSearchInput.value)" />
+    <button class="desktop-only" (click)="search(desktopSearchInput.value)">
         <span nz-icon nzType="search"></span>
     </button>
 </div>
@@ -12,24 +12,25 @@
 </button>
 
 <!-- MODAL DE PESQUISA -->
-<nz-modal 
-  [(nzVisible)]="isSearchVisible" 
-  nzTitle="Procure sua notícia?" 
+<nz-modal
+  [(nzVisible)]="isSearchVisible"
+  nzTitle="Procure sua notícia?"
   (nzOnCancel)="handleCancel()"
   [nzFooter]="null"
   nzCentered
 >
   <ng-container *nzModalContent>
     <nz-input-group [nzSuffix]="suffixIcon">
-      <input 
-        type="text" 
-        nz-input 
-        placeholder="Digite sua notícia..." 
+      <input
+        type="text"
+        nz-input
+        placeholder="Digite sua notícia..."
         #searchInput
+        (keydown.enter)="search(searchInput.value)"
       />
     </nz-input-group>
     <ng-template #suffixIcon>
-      <span nz-icon nzType="search"></span>
+      <span nz-icon nzType="search" (click)="search(searchInput.value)" style="cursor: pointer;"></span>
     </ng-template>
   </ng-container>
 </nz-modal>

@@ -10,7 +10,7 @@ import { NewsCard } from '../news-card/news-card';
   styleUrl: './news-listing-page-component.scss',
 })
 export class NewsListingPageComponent {
-  page = input.required<'columnist' | 'category'>();
+  page = input.required<'columnist' | 'category' | 'search'>();
   title = input.required<string>();
   news = input.required<INews[]>();
   columnistId = input<number | null>(null);
