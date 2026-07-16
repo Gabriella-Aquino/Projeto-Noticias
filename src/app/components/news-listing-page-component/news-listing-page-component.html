@@ -16,12 +16,16 @@
     </div>
     }
     <div class="separator"></div>
-    <div class="newsContainer">
-      @for (news of news(); track $index) {
-      <app-news-card class="listingPrimaryCard" [id]="news.id" [title]="news.title" [image]="news.image"
-        [subtitle]="news.subTitle" [category]="news.category" [updated]="news.updated" [created]="news.created"
-        variant="primary"></app-news-card>
-      }
-    </div>
+    @if (page() === 'search' && news().length === 0) {
+      <p class="emptyState">Nenhuma notícia encontrada.</p>
+    } @else {
+      <div class="newsContainer">
+        @for (news of news(); track $index) {
+        <app-news-card class="listingPrimaryCard" [id]="news.id" [title]="news.title" [image]="news.image"
+          [subtitle]="news.subTitle" [category]="news.category" [updated]="news.updated" [created]="news.created"
+          variant="primary"></app-news-card>
+        }
+      </div>
+    }
   </div>
 </div>
