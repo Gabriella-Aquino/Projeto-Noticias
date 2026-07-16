@@ -7,7 +7,9 @@
 }
 
 .admin-page {
+  position: relative;
   display: flex;
+  flex-direction: column;
   align-items: stretch;
   // Percentage/flex-grow heights don't reliably cascade down through `main`
   // (its flex container only sets min-height, not a definite height), so the
@@ -16,12 +18,70 @@
   font-family: f.$logo-pj-main-font;
 }
 
+// Layering, mobile only: sticky bar sits on the base layer, the backdrop
+// dims it, the off-canvas sidebar sits above both.
+.admin-topbar {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: c.$logo-pj-black;
+  color: white;
+  padding: 1.2rem 1.6rem;
+}
+
+.admin-menu-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.4rem;
+  height: 4.4rem;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: background-color 150ms ease-out;
+
+  &:hover,
+  &:focus-visible {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.admin-topbar__title {
+  font-size: f.$logo-pj-subtitle-size;
+  font-weight: 600;
+}
+
+.admin-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.45);
+  animation: admin-backdrop-in 200ms ease-out both;
+}
+
 .admin-sidebar {
-  width: 20rem;
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 3;
+  width: min(26rem, 84vw);
   flex-shrink: 0;
   background-color: c.$logo-pj-black;
   color: white;
   padding: 2.4rem 1.6rem;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 280ms t.$ease-out-quart;
+
+  &--open {
+    transform: translateX(0);
+  }
 
   h2 {
     margin: 0 0 0.4rem;
@@ -39,7 +99,8 @@
 
 .admin-content {
   flex: 1;
-  padding: 3.2rem 4rem;
+  min-width: 0;
+  padding: 2rem 1.6rem;
 }
 
 // nz-menu ships a light theme by default (white background, near-black text).
@@ -88,12 +149,45 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (prefers-reduced-motion: reduce) {
+  .admin-sidebar {
+    transition: none;
+  }
+
+  .admin-backdrop {
+    animation: none;
+  }
+}
+
+@keyframes admin-backdrop-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Desktop: sidebar is always visible in normal flow, topbar/backdrop drop out.
+@media (min-width: 1024px) {
   .admin-page {
-    flex-direction: column;
+    flex-direction: row;
+  }
+
+  .admin-topbar,
+  .admin-backdrop {
+    display: none;
   }
 
   .admin-sidebar {
-    width: 100%;
+    position: static;
+    z-index: auto;
+    width: 20rem;
+    transform: none;
+    transition: none;
+  }
+
+  .admin-content {
+    padding: 3.2rem 4rem;
   }
 }

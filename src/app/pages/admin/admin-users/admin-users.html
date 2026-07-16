@@ -11,8 +11,8 @@
     <p class="admin-empty">Nenhum usuário cadastrado.</p>
   } @else {
     <ul class="crud-list">
-      @for (user of users(); track user.id) {
-        <li class="crud-row">
+      @for (user of users(); track user.id; let i = $index) {
+        <li class="crud-row" [style.--i]="i">
           <div class="crud-row__identity">
             <span class="crud-row__label">{{ user.name }}</span>
             <nz-tag [nzColor]="user.role === 'admin' ? 'red' : 'blue'">

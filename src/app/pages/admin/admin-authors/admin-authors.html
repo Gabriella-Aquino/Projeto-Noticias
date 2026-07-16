@@ -13,8 +13,8 @@
     <p class="admin-empty">Nenhum autor cadastrado.</p>
   } @else {
     <ul class="crud-list">
-      @for (author of authors(); track author.id) {
-        <li class="crud-row">
+      @for (author of authors(); track author.id; let i = $index) {
+        <li class="crud-row" [style.--i]="i">
           <div class="crud-row__identity">
             @if (author.avatar) {
               <img class="crud-row__avatar" [src]="author.avatar" [alt]="author.name" />
