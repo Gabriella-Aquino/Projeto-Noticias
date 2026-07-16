@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -15,4 +15,23 @@ export class AdminLayout {
 
   currentUser = this.authService.currentUser;
   isAdmin = this.authService.isAdmin;
+
+  menuOpen = signal(false);
+
+  toggleMenu() {
+    this.menuOpen.update(open => !open);
+    document.body.style.overflow = this.menuOpen() ? 'hidden' : '';
+  }
+
+  closeMenu() {
+    this.menuOpen.set(false);
+    document.body.style.overflow = '';
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape() {
+    if (this.menuOpen()) {
+      this.closeMenu();
+    }
+  }
 }
