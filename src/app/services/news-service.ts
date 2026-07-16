@@ -78,6 +78,16 @@ export class NewsService {
       .pipe(map((news) => news.map((n) => this.toNews(n))));
   }
 
+  search(query: string): Observable<INews[]> {
+    const term = encodeURIComponent(`*${query}*`);
+    return this.http
+      .get<INewsResponse[]>(
+        `${this.url}?or=(title.ilike.${term},subTitle.ilike.${term})&order=created_at.desc`,
+        { headers: this.headers },
+      )
+      .pipe(map((news) => news.map((n) => this.toNews(n))));
+  }
+
   create(news: INewsCreate): Observable<INews> {
     return this.http
       .post<INewsResponse[]>(this.url, news, { headers: this.writeHeaders })
