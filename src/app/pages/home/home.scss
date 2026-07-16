@@ -1,35 +1,82 @@
 @use 'tools' as t;
 
+:host {
+  display: block;
+  width: 100%;
+  overflow-x: hidden;
+}
+
 .mainContainer {
   margin: t.$logo-pj-vertical-align;
+  max-width: 100%;
+
+  @media (max-width: 768px) {
+    margin: 20px 15px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 30px;
+    overflow-x: hidden;
+  }
 }
 
 nz-layout {
   background-color: transparent;
+  max-width: 100%;
+
+  @media (max-width: 768px) {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    overflow-x: hidden;
+  }
 }
 
 nz-sider {
   background-color: transparent;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    width: 100% !important;
+    max-width: 100% !important;
+    flex: 0 0 100% !important;
+  }
 }
 
 .siderContainer {
   @include t.flex-column;
   gap: 20px;
   overflow: hidden;
+
   app-news-card {
     padding-right: 20px;
     padding-bottom: 40px;
+
+    @media (max-width: 768px) {
+      padding-right: 0px;
+      padding-bottom: 20px;
+    }
   }
 
   .secondaryNews {
     display: flex;
     align-items: flex-start;
     gap: 20px;
+
     app-news-card {
       width: 0;
       flex: 1;
       min-width: 0;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+
+      app-news-card {
+        width: 100%;
+        flex: none;
+      }
     }
   }
 }
@@ -37,31 +84,77 @@ nz-sider {
 .tertiaryNoticie {
   @include t.flex-column;
   gap: 20px;
+  width: 100%;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    margin-top: 10px;
+    width: 100% !important;
+    padding: 0px;
+    overflow-x: hidden;
+  }
+
+  app-news-card {
+    width: 100% !important;
+    max-width: 100%;
+    display: block;
+    box-sizing: border-box;
+
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
 }
 
-.otherNews{
+.otherNews {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   align-items: start;
   gap: 40px;
   margin-top: 40px;
   padding: 40px;
   width: 100%;
+  box-sizing: border-box;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 15px;
+    margin-top: 20px;
+  }
 }
 
 .separator {
   border-top: 1px solid #e6e6e6;
 }
+
 section {
   display: flex;
   justify-content: space-between;
   margin: 2.4rem t.$logo-pj-vertical-align;
   align-items: flex-start;
   height: 10rem;
+  max-width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: row !important;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+    gap: 15px;
+    margin: 20px 15px;
+  }
+
   .daily-info {
     width: 22rem;
     height: 100%;
     @include t.flex-column;
     justify-content: space-between;
+
+    @media (max-width: 768px) {
+      width: auto;
+      flex: 1;
+      max-width: 180px;
+      gap: 8px;
+    }
   }
 }
