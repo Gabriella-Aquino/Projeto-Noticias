@@ -1,3 +1,7 @@
+@use 'fonts' as f;
+
+$ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+
 @mixin flex-center {
   display: flex;
   align-items: center;
@@ -23,16 +27,44 @@ $logo-pj-vertical-align: 3.35%;
   padding: 0;
 }
 
+// Reveal is scoped to freshly-fetched list items (loading() -> content),
+// not a page-load sequence, so a light stagger is legitimate here. Capped
+// at 10 items so long lists don't drag the reveal out.
 @mixin crud-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.6rem;
+  flex-wrap: wrap;
+  gap: 1.2rem 1.6rem;
   padding: 1.2rem 0;
   border-bottom: 1px solid #e6e6e6;
+  transition: background-color 150ms ease-out;
+  animation: crud-row-in 220ms $ease-out-quart both;
+  animation-delay: calc(min(var(--i, 0), 10) * 35ms);
 
   &:last-child {
     border-bottom: none;
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.025);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes crud-row-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
@@ -41,4 +73,45 @@ $logo-pj-vertical-align: 3.35%;
   align-items: center;
   gap: 0.4rem;
   flex-shrink: 0;
+
+  // Coarse pointers (touch) get the 44px minimum tap target; mouse/trackpad
+  // keeps the compact ng-zorro default.
+  @media (pointer: coarse) {
+    gap: 0.8rem;
+
+    button {
+      min-width: 4.4rem;
+      min-height: 4.4rem;
+    }
+  }
+}
+
+@mixin admin-section-header {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+
+  h1 {
+    margin: 0;
+    font-family: f.$logo-pj-main-font;
+    font-size: f.$logo-pj-title-size;
+    font-weight: 600;
+    color: #222;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  @media (min-width: 480px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    button {
+      width: auto;
+    }
+  }
 }
